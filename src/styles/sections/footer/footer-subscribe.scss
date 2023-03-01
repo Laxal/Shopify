@@ -1,0 +1,171 @@
+.footer-subscribe {
+	margin-top: 40px;
+
+	p {
+		margin-top: -1px;
+	}
+
+	&__loading {
+		// position: absolute;
+		width: 32px;
+		height: 32px;
+		filter: invert(0.8);
+	}
+
+	&__text {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: auto;
+		margin-left: auto;
+
+		@include media-max($desktop) {
+			width: 70%;
+		}
+	}
+
+	&__title {
+		padding-bottom: 30px;
+		margin: 0;
+		font-family: $font-medium;
+		font-size: calc($font-size + 3px);
+		font-weight: 400;
+		line-height: 1.15;
+		color: $color-dark;
+		text-align: center;
+
+		@include media-max($desktop) {
+			font-size: $font-size;
+		}
+	}
+
+	&__input-wrapper {
+		position: relative;
+
+		// padding-bottom: 10px;
+		margin-right: 10px;
+
+		@include media-max($desktop) {
+			margin-right: 0;
+		}
+	}
+
+	&__input {
+		width: 100%;
+		padding: 10px 40px 10px 15px;
+		font-family: $font-regular;
+		font-size: calc($font-size + 3px);
+		line-height: 1.86;
+		text-align: center;
+		background: transparent;
+		border-top: none;
+		border-right: none;
+		border-bottom: 1px solid $color-black;
+		border-left: none;
+		border-radius: inherit;
+		/* stylelint-disable-next-line property-no-vendor-prefix */
+		-moz-appearance: none;
+		appearance: none;
+
+		@include media-max($desktop) {
+			font-size: $font-size;
+		}
+
+		&::placeholder {
+			transition: all 0.2s ease;
+			transition-delay: 0s;
+			transition-timing-function: ease;
+			transition-duration: 0.2s;
+		}
+
+		&:focus-visible,
+		&:focus {
+			outline: 0;
+
+			&::placeholder {
+				opacity: 0.5;
+			}
+		}
+
+		&__ar {
+			padding: 10px 15px 10px 40px;
+		}
+	}
+
+	&__submit {
+		position: absolute;
+		right: 0;
+		padding: 10px;
+		color: $color-black !important;
+		background-color: transparent;
+		border: none;
+
+		&__ar {
+			right: unset;
+			left: 0;
+		}
+	}
+
+	&__condition {
+		display: flex;
+		gap: 5px;
+		justify-content: center;
+		max-width: 758px;
+		padding-bottom: 10px;
+		margin: 40px auto 0;
+
+		p {
+			font-family: $font-regular;
+			font-size: $font-size;
+			line-height: 17px;
+			color: $color-black;
+
+			@include media-max($desktop) {
+				font-size: calc($font-size - 2px);
+			}
+		}
+
+		a {
+			font-family: $font-regular;
+			font-size: $font-size;
+			line-height: 17px;
+			text-decoration: underline;
+			cursor: pointer;
+
+			@include media-max($desktop) {
+				font-size: calc($font-size - 2px);
+			}
+		}
+
+		svg {
+			width: 14px;
+		}
+	}
+
+	&__error {
+		font-family: $font-regular;
+		font-size: calc($font-size - 3px);
+		line-height: 1.86;
+		color: $color-errors;
+	}
+
+	&__successful {
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+		text-align: center;
+
+		&__text {
+			display: inline-block;
+			width: 100%;
+			max-width: 375px;
+			padding: 10px;
+			margin: 5px auto;
+			font-family: $font-regular;
+			font-size: calc($font-size - 1px);
+			line-height: 1.15;
+			color: $color-green;
+			border: 1px solid $color-light-grey;
+		}
+	}
+}

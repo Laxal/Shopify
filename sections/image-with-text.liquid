@@ -1,0 +1,98 @@
+{% liquid 
+	assign image_desktop = section.settings.image_desktop
+	assign image_mobile = section.settings.image_mobile
+	assign title = section.settings.title
+
+	if shop.locale == 'ar'
+		if section.settings.title_ar != blank
+			assign title = section.settings.title_ar
+		endif
+		if section.settings.image_mobile_ar != blank
+			assign image_mobile = section.settings.image_mobile_ar
+		endif
+		if section.settings.image_desktop_ar != blank
+			assign image_desktop = section.settings.image_desktop_ar
+		endif
+	endif
+	
+	if image_mobile == blank
+		assign image_mobile = image_desktop
+	endif
+	
+%}
+
+<div class="image-with-text">
+	<div class="image-with-text__inner">
+
+		{% capture image_desk %}
+			{% render 'media', image: image_desktop %}
+		{% endcapture %}
+
+		{% liquid 
+			capture image_desk
+				render 'media', image: image_desktop
+			endcapture
+
+			capture image_mob
+				render 'media', image: image_mobile
+			endcapture
+
+			render 'link', classes: 'image-with-text__image image-with-text__image--desktop', inner: image_desk
+			render 'link', classes: 'image-with-text__image image-with-text__image--mobile', inner: image_mob
+		%}
+
+	<div class="image-with-text__text">
+		{{- title -}}
+	</div>
+		
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Image desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop_ar",
+      "label": "Image desktop (AR)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile_ar",
+      "label": "Image mobile (AR)"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Link"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Text",
+      "default": "In the inspiring atmosphere of #hotyaz, accessories that stand out with their feminine details are indispensable for styles with high appeal. "
+    },
+    {
+      "type": "textarea",
+      "id": "title_ar",
+      "label": "Text (AR)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text"
+    }
+  ]
+}
+{% endschema %}

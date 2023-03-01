@@ -1,0 +1,247 @@
+<div class="grid-section">
+  <div class="grid-section__left" id="landing_menu_parent">
+  </div>
+  <div class="grid-section__right ipekyol-card">
+    <div>
+      {%liquid
+        assign title = section.settings.title
+        
+        if shop.locale == 'ar'
+          if section.settings.title_ar != blank
+          assign title = section.settings.title_ar
+          endif 
+        endif
+        %}
+        <div class="ipekyol-card__title">
+          <h1>{{title}}</h1>
+        </div>
+        <div>
+          {% for block in section.blocks %}
+            {% if section.blocks.size >0 %}
+              {% if block.type == 'image'%}
+                  <div class="ipekyol-card__image">
+                    {% render 'media',image:block.settings.image %}
+                  </div>
+              {% elsif block.type == 'text' %}
+                  {%liquid
+                    assign section_title = block.settings.section_title
+                    assign text_id = block.settings.text_id
+                  
+                    if shop.locale == 'ar'
+                        if block.settings.section_title_ar != blank
+                        assign section_title = block.settings.section_title_ar
+                      endif
+                        if block.settings.text_id_ar != blank
+                      assign text_id = block.settings.text_id_ar
+                      endif
+                    endif
+                  %}
+
+                  <div class="ayaydin_miroglio__item__text">
+                    {% if section_title != blank %}
+                      <h2 class="ayaydin_miroglio__item__text__title">{{section_title}}</h2>
+                    {% endif %}
+                    <div class="ayaydin_miroglio__item__text__rich">{{text_id}}</div>
+                  </div>
+              {% elsif block.type == 'text_with_image' %}  
+                {%liquid
+                  assign section_title = block.settings.section_title
+                  assign text_id = block.settings.text_id
+                
+                  if shop.locale == 'ar'
+                      if block.settings.section_title_ar != blank
+                      assign section_title = block.settings.section_title_ar
+                    endif
+                      if block.settings.text_id_ar != blank
+                    assign text_id = block.settings.text_id_ar
+                    endif
+                  endif
+                %}
+                <div class="ipekyol-card__textWithImage">
+                  <div class="ipekyol-card__textWithImage__text">
+                    {% render 'media', image: block.settings.image %}
+                    <div>{{text_id}}</div>
+                   
+                  </div>
+                  
+                  <div class="ipekyol-card__textWithImage__image">
+                    
+                    
+                  </div>
+                </div>
+                {% elsif block.type == 'list' %}
+                {%liquid
+                assign list_area = block.settings.list_area
+                assign title = block.settings.title
+                
+                
+                if shop.locale == 'ar' 
+                    if block.settings.title_ar != blank
+                      assign title = block.settings.title_ar
+                    endif
+                    if block.settings.list_area_ar != blank
+                    assign list_area = block.settings.list_area_ar
+                    endif
+                endif 
+                assign list =list_area | split: '/' 
+                %}
+                <div class="ipekyol-card__area" >
+                  {% if title!= blank %}
+                    <h2 class="ipekyol-card__area__title">{{title}}</h2>
+                  {% endif %}
+                  <ul class="ipekyol-card__area__list">
+                    {% for item in list %}
+                      <li>{{item | strip}}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% elsif block.type == 'button' %}
+                {%liquid
+                assign button = block.settings.button
+                assign link_url = block.settings.link_url 
+                if shop.locale == 'ar'
+                  if block.settings.button_ar != blank
+                  assign button = block.settings.button_ar
+                  endif 
+                endif
+                %}
+                <div class="ipekyol-card__btn">
+                  <a href="{{link_url}}" class="btn btn__primary">{{button}}</a>
+                </div>
+              {%endif%}
+            {% endif %}
+          {%endfor%}
+        </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "ipekyol-card",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "My Ipekyol Card Score"
+      },
+      {
+        "type": "text",
+        "id": "title_ar",
+        "label": "Title (AR)"
+      }
+    ],
+    "blocks": [
+      { "type": "button",
+        "name": "Button",
+        "settings":[
+          {
+            "type": "text",
+            "id": "button",
+            "label": "Button text",
+            "default" : "Start shopping"
+          },
+          {
+            "type": "text",
+            "id": "button_ar",
+            "label": "Button text (AR)"
+          },
+          {
+            "type": "url",
+            "id": "link_url",
+            "label": "Button url"
+          }
+        ]
+      },
+      { "type": "text_with_image",
+        "name": "Text with image",
+        "settings":[
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Section image"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id",
+            "label": "Section text"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_ar",
+            "label": "Section text (AR)"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Section image"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings":[
+          {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section title"
+          },
+          {
+            "type": "text",
+            "id": "section_title_ar",
+            "label": "Section title (AR)"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id",
+            "label": "Section text",
+            "default": "<p>What is Ipekyol Card? - Ipekyol Card Advantages - Points Usage<br><br>When you become a member of Ipekyol Card, you will be informed about general and special campaigns, promotions and promotions of Ipekyol; You can take advantage of earning/spending points.</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_ar",
+            "label": "Section text (AR)"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "name": "List",
+        "settings":[
+          {
+            "type": "text",
+            "id": "title",
+            "label": "List title",
+            "default": "Title"
+          },
+          {
+            "type": "text",
+            "id": "title_ar",
+            "label": "List title (AR)"
+          },
+          {
+            "type": "textarea",
+            "id": "list_area",
+            "label": "List text",
+            "info" : "To make a new item in the list - paste symbol \"/\" .Example: \"first row / second row / third row\"",
+            "default": "After logging in as a member, click on the \"My Membership Information\" tab from the \"My Account\" section at the top right./At the bottom of all your membership information, \"I want an Ipekyol Card and I approve the Ipekyol Card contract.\" Make sure the box is ticked./Activate your card by clicking the \"Update My Information\" button./In order to view your Ipekyol Card score, you need to create your order and proceed to the payment screen. You can access your points details at the top of the payment screen and use them in your shopping."
+          },
+          {
+            "type": "textarea",
+            "id": "list_area_ar",
+            "label": "List text (AR)",
+            "info" : "To make a new item in the list - paste symbol \"/\" .Example: first row / second row / third row"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,137 @@
+.collection-filters {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	padding: 40px 10px;
+	visibility: hidden;
+	background: rgb(255 255 255 / 90%);
+	opacity: 0;
+	transition: transform 0.2s ease, opacity 0.2s ease;
+	transform: translateY(10px);
+
+	@include media-max($desktop) {
+		display: none;
+	}
+
+	&.active {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	&__inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	&__filter-container {
+		display: flex;
+		flex-wrap: wrap;
+		row-gap: 30px;
+		column-gap: 30px;
+		width: 100%;
+	}
+
+	&__filter-item {
+		width: 20%;
+		min-width: 20%;
+	}
+
+	&__filter-title {
+		padding-bottom: 10px;
+		font-family: $font-medium;
+		font-size: $font-size;
+		font-weight: 400;
+	}
+
+	&__filter-list {
+		width: 100%;
+		max-height: 240px;
+		overflow-x: hidden;
+
+		&::-webkit-scrollbar {
+			width: 3px;
+		}
+
+		&::-webkit-scrollbar-track,
+		&::-webkit-scrollbar-thumb {
+			border-radius: 1px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: $color-dark;
+
+			&:window-inactive {
+				background-color: $color-dark;
+			}
+		}
+	}
+
+	&__filter-list--flex {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: 8px;
+	}
+
+	&__filter-list--flex &__filter-option {
+		width: calc(50% - 4px);
+	}
+
+	&__filter-name {
+		display: flex;
+		gap: 4px;
+		align-items: center;
+		padding: 7px  0;
+		font-family: $font-regular;
+		font-size: 14px;
+		font-weight: 400;
+		color: $color-black;
+		cursor: pointer;
+
+		&.active {
+			font-family: $font-medium;
+		}
+	}
+
+	&__color-icon {
+		display: block;
+		width: 10px;
+		height: 10px;
+		overflow: hidden;
+		border-radius: 50%;
+		outline: 1px solid $color-light-grey;
+	}
+
+	&__btn-list {
+		display: flex;
+		column-gap: 20px;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		padding-top: 50px;
+	}
+
+	&__btn-deselect {
+		display: block;
+		padding: 11px 3px;
+		font-size: $font-size;
+		color: $color-black;
+		text-align: center;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
+	&__btn-ok {
+		width: 100%;
+		max-width: 150px;
+		padding-top: 9px;
+		padding-bottom: 9px;
+		font-family: $font-medium;
+		font-weight: 600;
+		cursor: pointer;
+		border-color: $color-grey;
+	}
+}

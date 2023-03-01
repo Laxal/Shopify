@@ -1,0 +1,150 @@
+{% comment %}ly_liquid_scripts_begin{% endcomment %}{% capture ly_liquid_content %}{% comment %}ly_liquid_scripts_end{% endcomment %}<!doctype html>
+<html lang="{{ request.locale.iso_code }}"{% comment %}ly_dir_replace_for_[]_begin{% endcomment %}{%- assign language_code = '_' | append: request.locale.iso_code -%}{%- if '_ar_he_fa_ur' contains language_code -%} dir="rtl" {%- endif -%}{% comment %}ly_dir_replace_end{% endcomment %}>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+  {%- if settings.favicon != blank -%}
+  <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% render 'meta-tags' %}
+
+  {{ content_for_header }}
+
+  {% style %}
+
+  @font-face {
+    font-family: "Graphik regular";
+    font-display: swap;
+    src: url("{{ 'graphikregular.woff' | asset_url }}") format("woff");
+  }
+
+  @font-face {
+    font-family: "Graphik medium";
+    font-display: swap;
+    src: url("{{ 'graphikmedium.woff' | asset_url }}") format("woff");
+  }
+
+  :root {
+    --font-regular: "Graphik regular";
+    --font-medium: "Graphik medium";
+
+    --font-size-base: {{ settings.font_size }}px;
+
+    --color-white: {{ settings.color_white }};
+    --color-red: {{ settings.color_red }};
+    --color-light-grey: {{ settings.light_grey }};
+    --color-grey: {{ settings.color_grey }};
+    --color-dark-grey-1: {{ settings.color_dark_grey_1 }};
+    --color-dark-grey-2: {{ settings.color_dark_grey_2 }};
+    --color-dark: {{ settings.color_dark }};
+    --color-black: {{ settings.color_black }};
+    --color-breadcrumb: {{ settings.color_breadcrumb }};
+    --color-breadcrumb-active: {{ settings.color_breadcrumb_active }};
+    --color-errors: {{ settings.color_errors }};
+    --color-green: {{ settings.color_green }};
+    --color-light-grey-2: {{ settings.color_light_grey_2 }};
+  }
+
+  [x-cloak] {
+    opacity: 0;
+  }
+
+  {% endstyle %}
+
+  {{ 'index.css' | asset_url | stylesheet_tag }}
+
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    if (Shopify.designMode) {
+      document.documentElement.classList.add('shopify-design-mode');
+    }
+  </script>
+{% comment %}ly_dir_styles_begin{% endcomment %}{%- assign language_code = '_' | append: request.locale.iso_code -%}{%- if '_ar_he_fa_ur' contains language_code -%}{{- 'ly-rtl.css' | asset_url | stylesheet_tag -}}{%- endif -%}{% comment %}ly_dir_styles_end{% endcomment %}</head>
+
+<body x-cloak x-data="body" @resize.window.debounce.100ms="resizeHandler" @cart-update.window="getCart">
+
+  {% section 'header' %}
+
+  <main id="main-content" class="content-for-layout" role="main">
+    {{ content_for_layout }}
+
+    {% assign prefix = template | split: '-' | first %}
+   
+    {% if prefix == 'page.institutional' %}
+      {% section 'institutional' %}
+      <script>
+        const parent=document.getElementById('landing_menu_parent')
+        const menu=document.getElementById('landing_menu')
+       if(parent && menu !=null){
+        parent.append(menu)
+      }
+      </script>
+    {% endif %}
+
+  </main>
+
+  <footer>
+    {% section 'footer-icons' %}
+    {% section 'footer-subscribe' %}
+    {% section 'footer-combined' %}
+  </footer>
+
+  {% render 'button-scroll-top' %}
+
+  <script>
+    window.currency = { value: '{{ cart.currency[settings.currency_type] }}', position: '{{ settings.currency_position }}' }
+
+
+    window.shopUrl = '{{ request.origin }}';
+
+    window.routes = {
+      cart_add_url: '{{ routes.cart_add_url }}',
+      cart_change_url: '{{ routes.cart_change_url }}',
+      cart_update_url: '{{ routes.cart_update_url }}',
+      predictive_search_url: '{{ routes.predictive_search_url }}'
+    };
+
+    window.cartStrings = {
+      error: `{{ 'sections.cart.cart_error' | t }}`,
+      quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+    }
+
+    window.variantStrings = {
+      addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+      soldOut: `{{ 'products.product.sold_out' | t }}`,
+      unavailable: `{{ 'products.product.unavailable' | t }}`,
+    }
+
+    window.accessibilityStrings = {
+      imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+      shareSuccess: `{{ 'general.share.success_message' | t }}`,
+      pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+      playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+    }
+  </script>
+
+  {% if template == 'collection' %}
+    {% section 'product-colors' %}
+  {% endif %}
+
+  <script src="{{ 'index.js' | asset_url }}" defer="defer"></script>
+<!-- langify-v2-scripts-begin -->{% comment %}ly_liquid_scripts_begin{% endcomment %}{% endcapture %}{% render 'ly-liquid-scripts' content: ly_liquid_content %}{% comment %}ly_liquid_scripts_end{% endcomment %}{% comment %}ly_core_scripts_begin{% endcomment %}{% render 'ly-core-scripts' %}{% comment %}ly_core_scripts_end{% endcomment %}{% comment %}ly_switcher_factory_begin{% endcomment %}{% render 'ly-switcher-factory' %}{% comment %}ly_switcher_factory_end{% endcomment %}<!-- langify-v2-scripts-end --></body>
+
+</html>

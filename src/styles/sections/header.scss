@@ -1,0 +1,10 @@
+@import "./header/header-top";
+@import "./header/header-search";
+@import "./header/header-logo";
+@import "./header/header-desktop";
+@import "./header/header-mobile";
+
+.header {
+	position: relative;
+	z-index: 100;
+}

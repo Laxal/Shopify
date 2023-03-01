@@ -1,0 +1,114 @@
+{% if menu != blank %}
+	<div class="header-desktop">
+		<div class="header-desktop__inner">
+			
+			<ul class="header-desktop__main-list">
+				{% for link in menu.links %}
+					{% liquid
+						assign sub_links = link.links
+						assign href = link.url
+	
+						if sub_links != blank
+							assign href = '#'
+						endif
+					%}
+					<li
+						class="header-desktop__main-item"
+						{% if sub_links != blank %}
+						x-data="headerDesktop"
+						@mouseenter="activateWithDelay"
+						@mouseleave="closeWithDelay"
+						{% endif %}
+					>
+						{% liquid 
+							assign classes = 'header-desktop__main-link'
+							assign attributes = ''
+
+							if shop.locale == 'ar'
+								assign classes = 'header-desktop__main-link header-desktop__main-link--ar'
+							endif
+	
+							if sub_links != blank
+								assign classes = classes | append: ' animate-border-bottom'
+								assign attributes = ':class="{ active }"'
+							endif
+						%}
+	
+						{%
+							render 'link'
+							classes: classes
+							href: href
+							attributes: attributes
+							inner: link.title
+						%}
+	
+						{% if sub_links != blank %}
+							<div :class="{ active }" class="header-desktop__mega-menu">
+	
+								{% liquid 
+									assign column_count = 2
+	
+									for column in column_count_list
+										assign title = column.settings.title
+	
+										if shop.locale == 'ar'
+											if column.settings.title_ar != blank
+												assign title = column.settings.title_ar
+											endif
+										endif
+	
+										if link.title == title
+											assign column_count = column.settings.column_count
+										endif
+										
+									endfor
+								%}
+	
+								<ul style="column-count: {{ column_count }};" class="header-desktop__sub-list">
+		
+									{% for sub_link in sub_links %}
+										<li class="header-desktop__sub-item">
+											{% liquid 
+												assign classes = 'header-desktop__sub-link'
+												if shop.locale == 'ar'
+													assign classes = 'header-desktop__sub-link header-desktop__sub-link--ar'
+												endif
+											%}
+											{%
+												render 'header-link'
+												classes: classes
+												href: sub_link.url
+												inner: sub_link.title
+												new_list: new_list
+											%}
+		
+											{% if sub_link.links != blank %}
+												<ul class="header-desktop__sub-sub-list">
+													{% for sub_sub_link in sub_link.links %}
+														<li class="header-desktop__sub-sub-item">
+															{%
+																render 'header-link'
+																classes: 'header-desktop__sub-sub-link link'
+																href: sub_sub_link.url
+																inner: sub_sub_link.title
+																new_list: new_list
+															%}
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						{% endif %}
+	
+						</a>
+					</li>
+	
+				{% endfor %}
+			</ul>
+	
+		</div>
+	</div>
+{% endif %}

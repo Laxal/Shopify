@@ -1,0 +1,148 @@
+<div class="security_policy grid-section">
+  <div class="grid-section__left" id="landing_menu_parent">
+  </div>
+  <div class="grid-section__right">
+    <div class="security_policy__content grid-section__right__container">
+      {%liquid
+      assign title = section.settings.title
+      
+      if shop.locale == 'ar'
+        if section.settings.title_ar != blank
+        assign title = section.settings.title_ar
+        endif 
+      endif
+      %}
+      <div class="security_policy__content__title">
+        <h1>{{title}}</h1>
+      </div>
+      <div>
+        {% if section.blocks.size >0 %}
+          {% for block in section.blocks %}
+            {% if block.type == 'list' %}
+            {%liquid
+              assign list_area = block.settings.list_area
+              assign title = block.settings.title
+              if shop.locale == 'ar' 
+                  if block.settings.title_ar != blank
+                    assign title = block.settings.title_ar
+                  endif
+                  if block.settings.list_area_ar != blank
+                  assign list_area = block.settings.list_area_ar
+                  endif
+              endif 
+              assign list =list_area | split: '/' 
+              %}
+              <div class="security_policy__content__title" >
+                {% if title!= blank %}
+                  <h2 class="security_policy__content__area__title">{{title}}</h2>
+                {% endif %}
+                <ul class="security_policy__content__list">
+                  {% for item in list %}
+                    <li>{{item | strip}}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% elsif block.type == 'text' %}
+              {%liquid
+                assign section_title = block.settings.section_title
+                assign text_id = block.settings.text_id
+              
+              if shop.locale == 'ar'
+                  if block.settings.section_title_ar != blank
+                  assign section_title = block.settings.section_title_ar
+                endif
+                  if block.settings.text_id_ar != blank
+                assign text_id = block.settings.text_id_ar
+                endif
+              endif
+              %}
+            <div class="security_policy__content__text">
+              {% if section_title != blank %}
+                <h2 class="security_policy__content__text__title">{{section_title}}</h2>
+              {% endif %}
+              <div class="security_policy__content__text__rich">{{text_id}}</div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "secutiy-policy",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Information Security Management Policy"
+      },
+      {
+        "type": "text",
+        "id": "title_ar",
+        "label": "Title (AR)"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Text",
+        "settings":[
+          {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section title"
+          },
+          {
+            "type": "text",
+            "id": "section_title_ar",
+            "label": "Section title (AR)"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id",
+            "label": "Section text",
+            "default": "<p>We undertake to comply with the legal requirements and standards on Quality Management while performing our activities and services.<br><br>* Our ethical values: To act in accordance with the laws, the terms of the agreement with the customer, to fulfill the commitments made.<br><br>** Our Stakeholders: Our employees, suppliers, customers, subcontractors<br><br>It has determined as a policy to fulfill the requirements of the IPEKYOL ISO 27001:2013 Information Security Management System, to maintain its effectiveness and to continue its continuous improvement activities, to meet the information security requirements by taking into account the existing and potential risks, taking into account the legal and customer conditions, and submitted to the interested parties.</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_ar",
+            "label": "Section text (AR)"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "name": "List",
+        "settings":[
+          {
+            "type": "text",
+            "id": "title",
+            "label": "List title",
+            "default": "Title"
+          },
+          {
+            "type": "text",
+            "id": "title_ar",
+            "label": "List title (AR)"
+          },
+          {
+            "type": "textarea",
+            "id": "list_area",
+            "label": "List text",
+            "info" : "To make a new item in the list - paste symbol \"/\" .Example: \"first row / second row / third row\"",
+            "default": "By responding to the needs of our customers in a timely, reliable and continuous manner, within the framework of a service approach based on ethical values*; to maximize customer satisfaction,/In order to achieve excellence, by adapting innovations to our processes with the participation of all employees; to make the understanding of continuous improvement an integral part of our company culture,/To establish and develop relationships based on mutual trust and information sharing in our service chain by using effective communication techniques with our stakeholders**,/To protect the brand image and awareness,/Giving feedback to our sub-producers on quality and finding solutions to problems together. Thus, by increasing their awareness and knowledge levels, to ensure their professional and individual development,/To keep the satisfaction and morale of our employees at a high level,"
+          },
+          {
+            "type": "textarea",
+            "id": "list_area_ar",
+            "label": "List text (AR)",
+            "info" : "To make a new item in the list - paste symbol \"/\" .Example: first row / second row / third row"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,12 @@
+<template x-if="windowWidth > 1024">
+	<div
+		class="button-scroll-top {% if shop.locale == 'ar' %}button-scroll-top--ar{% endif %}"
+		x-data="{ show: false }"
+		:class="{ active: show }"
+		@button-scroll-toggle.window="($event) => show = $event.detail.show"
+		@click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+	>
+		{% render 'icons', icon: 'icon-right-arrow' %}
+	</div>
+</template>
+

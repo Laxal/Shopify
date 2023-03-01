@@ -1,0 +1,64 @@
+<div class="collection-topbar" x-data="collectionTopbarItems" x-show="productCount" @click.outside="active = ''">
+	<div class="collection-topbar__inner">
+
+		<a href="{{ routes.root_url }}" class="collection-topbar__title">
+			{{ collection.title }}
+		</a>
+
+		<div class="collection-topbar__list">
+				<input x-model="availability" style="display: none;" type="checkbox" name="show-sold-out" id="show-sold-out">
+				<label class="collection-topbar__show-available {% if shop.locale == 'ar' %}collection-topbar__show-available--ar{% endif %}" for="show-sold-out">
+					<span class="checkbox-icon" x-show="!availability">{% render 'icons', icon: 'icon-checkbox' %}</span>
+					<span class="checkbox-icon" x-show="availability">{% render 'icons', icon: 'icon-checkbox-active' %}</span>
+					<span class="checkbox-label">{{ availability_text }}</span>
+				</label>
+
+				<div @click="active = 'filter'" :class="{ active: active == 'filter' }" class="collection-topbar__filter-btn {% if shop.locale == 'ar' %}collection-topbar__filter-btn--ar{% endif %} collection-topbar__chevron animate-border-bottom">
+					<span>{{ filter_text }}</span>
+				</div>
+
+				<div @click="active = 'sort'" :class="{ active: active == 'sort' }" class="collection-topbar__sort-by collection-topbar__chevron animate-border-bottom">
+					<span>{{ sort_text }}</span>
+					{%
+						render 'collection-sort'
+						availability_text: availability_text
+						sort_new: sort_new
+						sort_price_low: sort_price_low
+						sort_price_high: sort_price_high
+						sort_discount: sort_discount
+					%}
+				</div>
+
+				<div class="collection-topbar__grid-type-list {% if shop.locale == 'ar' %}collection-topbar__grid-type-list--ar{% endif %} collection-topbar__grid-type-list--desktop">
+					<div :class="{ active: grid == 2 }" @click="grid = 2" class="collection-topbar__grid-type-btn">
+						{% render 'icons', icon: 'icon-view-2' %}
+					</div>
+					<div :class="{ active: grid == 4 }" @click="grid = 4" class="collection-topbar__grid-type-btn">
+						{% render 'icons', icon: 'icon-view-4' %}
+					</div>
+				</div>
+
+				<div class="collection-topbar__grid-type-list {% if shop.locale == 'ar' %}collection-topbar__grid-type-list--ar{% endif %} collection-topbar__grid-type-list--mobile">
+					<div :class="{ active: grid == 2 }" @click="grid = 2" class="collection-topbar__grid-type-btn">
+						{% render 'icons', icon: 'icon-view-1' %}
+					</div>
+					<div :class="{ active: grid == 4 }" @click="grid = 4" class="collection-topbar__grid-type-btn">
+						{% render 'icons', icon: 'icon-view-3' %}
+					</div>
+				</div>
+		</div>
+
+	</div>
+	{%
+		render 'collection-filters'
+		btn_ok: btn_ok
+		btn_reset: btn_reset
+	%}
+	{%
+		render 'collection-filters-mobile'
+		filter_text: filter_text
+		btn_ok: btn_ok
+		btn_reset: btn_reset
+		product_count_label: product_count_label
+	%}
+</div>

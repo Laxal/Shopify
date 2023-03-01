@@ -1,0 +1,326 @@
+{% liquid 
+	assign empty_text = section.settings.empty_text
+	assign availability_text = section.settings.availability_text
+	assign filter_text = section.settings.filter_text
+	assign sort_text = section.settings.sort_text
+	assign sort_new = section.settings.sort_new
+	assign sort_price_low = section.settings.sort_price_low
+	assign sort_price_high = section.settings.sort_price_high
+	assign sort_discount = section.settings.sort_discount
+	assign btn_ok = section.settings.btn_ok
+	assign btn_reset = section.settings.btn_reset
+	assign product_count_label = section.settings.product_count_label
+	assign discount_label = section.settings.discount_label
+	
+	if shop.locale == 'ar'
+		if section.settings.empty_text_ar != blank
+			assign empty_text = section.settings.empty_text_ar
+		endif
+		if section.settings.availability_text_ar != blank
+			assign availability_text = section.settings.availability_text_ar
+		endif
+		if section.settings.filter_text_ar != blank
+			assign filter_text = section.settings.filter_text_ar
+		endif
+		if section.settings.sort_text_ar != blank
+			assign sort_text = section.settings.sort_text_ar
+		endif
+		if section.settings.sort_new_ar != blank
+			assign sort_new = section.settings.sort_new_ar
+		endif
+		if section.settings.sort_price_low_ar != blank
+			assign sort_price_low = section.settings.sort_price_low_ar
+		endif
+		if section.settings.sort_price_high_ar != blank
+			assign sort_price_high = section.settings.sort_price_high_ar
+		endif
+		if section.settings.sort_discount_ar != blank
+			assign sort_discount = section.settings.sort_discount_ar
+		endif
+		if section.settings.btn_ok_ar != blank
+			assign btn_ok = section.settings.btn_ok_ar
+		endif
+		if section.settings.btn_reset_ar != blank
+			assign btn_reset = section.settings.btn_reset_ar
+		endif
+		if section.settings.product_count_label_ar != blank
+			assign product_count_label = section.settings.product_count_label_ar
+		endif
+		if section.settings.discount_label_ar != blank
+			assign discount_label = section.settings.discount_label_ar
+		endif
+	endif
+%}
+
+<div class="collection" x-data="collectionMain" @popstate.window="popstateHandler">
+	{% render 'collection-loader' %}
+	<div class="collection__inner" id="collection-inner">
+
+		<div class="collection__menu">
+			{% render 'collection-menu', menu: section.settings.menu %}
+		</div>
+
+		<div class="collection__top-bar">
+			{%
+				render 'collection-top-bar'
+				collection: collection
+				availability_text: availability_text
+				filter_text: filter_text
+				sort_text: sort_text
+				sort_new: sort_new
+				sort_price_low: sort_price_low
+				sort_price_high: sort_price_high
+				sort_discount: sort_discount
+				btn_ok: btn_ok
+				btn_reset: btn_reset
+				product_count_label: product_count_label
+			%}
+		</div>
+
+		<div id="collection-content" class="collection__content">
+			{% render 'collection-filters-data', collection: collection %}
+			
+			{% if collection.products_count > 0 %}
+				<div :class="{ 'grid-2': grid == 2, 'grid-4': grid == 4 }" id="product-list" class="collection__product-list {% if shop.locale == 'ar' %}collection__product-list--ar{% endif %}" x-data="collectionProductList">
+				
+					{% liquid
+						assign paginate_by = 10000
+					
+						if collection.sort_by == 'manual'
+							assign chunk_count = 12
+							paginate collection.products by paginate_by
+								for product in collection.products
+
+									assign attributes = ''
+
+									if product.compare_at_price != blank
+										assign price = product.price | times: 1.0
+										assign old_price = product.compare_at_price | times: 1.0
+										assign percent = price | divided_by: old_price
+										assign percent = percent | times: 100
+										assign percent = 100 | minus: percent | ceil
+										assign attributes = 'style="order: -' | append: percent | append: ';"'
+									endif
+									render 'collection-product-card', product: product, attributes: attributes, discount_label: discount_label, index: forloop.index, chunk_count: chunk_count
+									
+									if forloop.index >= chunk_count
+										assign chunk_count = chunk_count | plus: 12
+									endif
+									
+								endfor
+							endpaginate
+
+						else
+
+							assign chunk_count = 12
+							assign attributes = ''
+
+							paginate collection.products by paginate_by
+								for product in collection.products
+									render 'collection-product-card', product: product, discount_label: discount_label, index: forloop.index, chunk_count: chunk_count, attributes: attributes
+									
+									if forloop.index >= chunk_count
+										assign chunk_count = chunk_count | plus: 12
+									endif
+
+								endfor
+							endpaginate
+							
+
+						endif
+					%}
+					
+				</div>
+
+				<div class="collection__breadcrumbs">
+					{% render 'breadcrumbs' %}
+				</div>
+
+				<div class="collection__mobile-nav">
+					{% render 'collection-menu-mobile', menu: section.settings.menu %}
+				</div>
+
+				<div class="collection__scroll-top">
+					{% render 'button-scroll-top', classes: 'collection__scroll-top-btn' %}
+					<div
+						class="collection__scroll-top-btn"
+						@click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+					>
+						{% render 'icons', icon: 'icon-right-arrow' %}
+					</div>
+				</div>
+
+			{% else %}
+				<div class="collection__empty">
+					<div class="collection__empty-message">
+						<div class="collection__empty-icon">
+							{% render 'icons', icon: 'icon-basket' %}
+						</div>
+						<div class="collection__empty-text">
+							{{ empty_text }}
+						</div>
+					</div>
+				</div>
+			{% endif %}
+
+		</div>
+
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "class": "collection-wrapper",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "All links must be unique."
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Text if product not found",
+      "default": "Product Not Found!"
+    },
+    {
+      "type": "text",
+      "id": "empty_text_ar",
+      "label": "Text if product not found (AR)"
+    },
+    {
+      "type": "header",
+      "content": "Filters"
+    },
+    {
+      "type": "text",
+      "id": "availability_text",
+      "label": "Text for show only available products checkbox",
+      "default": "Show Out Out"
+    },
+    {
+      "type": "text",
+      "id": "availability_text_ar",
+      "label": "Text for show only available products checkbox (AR)"
+    },
+    {
+      "type": "text",
+      "id": "filter_text",
+      "label": "Filter button text",
+      "default": "filter"
+    },
+    {
+      "type": "text",
+      "id": "filter_text_ar",
+      "label": "Filter button text (AR)"
+    },
+    {
+      "type": "text",
+      "id": "sort_text",
+      "label": "Sort button text",
+      "default": "Sort by"
+    },
+    {
+      "type": "text",
+      "id": "sort_text_ar",
+      "label": "Sort button text (AR)"
+    },
+    {
+      "type": "text",
+      "id": "sort_new",
+      "label": "Sort by date text",
+      "default": "new ones"
+    },
+    {
+      "type": "text",
+      "id": "sort_new_ar",
+      "label": "Sort by date text (AR)"
+    },
+    {
+      "type": "text",
+      "id": "sort_price_low",
+      "label": "Sort by price, low to high",
+      "default": "Increased Price"
+    },
+    {
+      "type": "text",
+      "id": "sort_price_low_ar",
+      "label": "Sort by price, low to high (AR)"
+    },
+    {
+      "type": "text",
+      "id": "sort_price_high",
+      "label": "Sort by price, high to low",
+      "default": "Decreasing Price"
+    },
+    {
+      "type": "text",
+      "id": "sort_price_high_ar",
+      "label": "Sort by price, high to low (AR)"
+    },
+    {
+      "type": "text",
+      "id": "sort_discount",
+      "label": "Sort by discount rate",
+      "default": "Discount rate"
+    },
+    {
+      "type": "text",
+      "id": "sort_discount_ar",
+      "label": "Sort by discount rate (AR)"
+    },
+    {
+      "type": "text",
+      "id": "btn_ok",
+      "label": "Apply filters button text",
+      "default": "OK"
+    },
+    {
+      "type": "text",
+      "id": "btn_ok_ar",
+      "label": "Apply filters button text (AR)"
+    },
+    {
+      "type": "text",
+      "id": "btn_reset",
+      "label": "Clear filters button text",
+      "default": "deselect all"
+    },
+    {
+      "type": "text",
+      "id": "btn_reset_ar",
+      "label": "Clear filters button text (AR)"
+    },
+    {
+      "type": "text",
+      "id": "product_count_label",
+      "label": "Product count label",
+      "default": "Products",
+      "info": "Mobile only"
+    },
+    {
+      "type": "text",
+      "id": "product_count_label_ar",
+      "label": "Product count label (AR)",
+      "info": "Mobile only"
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "text",
+      "id": "discount_label",
+      "label": "Discount label text",
+      "default": "Discount"
+    },
+    {
+      "type": "text",
+      "id": "discount_label_ar",
+      "label": "Discount label text (AR)"
+    }
+  ]
+}
+{% endschema %}

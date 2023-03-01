@@ -1,0 +1,88 @@
+/* stylelint-disable selector-class-pattern */
+.footer-social {
+	margin-bottom: 50px;
+
+	@include media-max($desktop) {
+		margin-bottom: 48px;
+	}
+
+	&__title {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		justify-content: center;
+
+		&__item {
+			display: flex;
+			align-items: center;
+			vertical-align: baseline;
+		}
+
+		p {
+			padding-bottom: 6px;
+			font-size: calc($font-size + 4px);
+			line-height: 1.15;
+			color: $color-dark;
+			vertical-align: inherit;
+
+			@include media-max($desktop) {
+				font-size: calc($font-size + 2px);
+			}
+		}
+
+		a {
+			font-size: calc($font-size + 4px);
+			line-height: 1.15;
+			text-decoration: underline;
+			vertical-align: inherit;
+
+			@include media-max($desktop) {
+				font-size: calc($font-size + 2px);
+			}
+		}
+	}
+
+	&__icons {
+		display: flex;
+		justify-content: center;
+		margin-top: 30px;
+
+		// padding-top: 70px;
+		// padding-bottom: 90px;
+
+		&__inner {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 24px;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			min-width: none;
+		}
+
+		&__item {
+			position: relative;
+			display: flex;
+			align-items: center;
+			padding: 2px 2px 0;
+			margin-bottom: 6px;
+			overflow: hidden;
+			text-decoration: none;
+
+			svg {
+				position: absolute;
+				transform: scale(4);
+			}
+		}
+
+		&__item-text {
+			margin-left: 10px;
+			font-family: $font-medium;
+			font-size: calc($font-size + 3px);
+			line-height: 16px;
+			color: $color-black;
+			text-transform: uppercase;
+			letter-spacing: 0;
+		}
+	}
+}

@@ -1,0 +1,199 @@
+{% liquid 
+  assign my_account = section.settings.my_account
+  assign placeholder = section.settings.placeholder
+
+  assign login = section.settings.login
+  
+ 
+
+  if shop.locale == 'ar'
+    if section.settings.my_account_ar != blank
+      assign my_account = section.settings.my_account_ar
+    endif
+    if section.settings.placeholder_ar != blank
+      assign placeholder = section.settings.placeholder_ar
+    endif
+    if section.settings.login_ar != blank
+      assign login = section.settings.login_ar
+    endif
+  endif
+
+  assign logo = section.settings.image | image_url: height: 80
+  if section.settings.icon != blank
+    assign logo = section.settings.icon
+  endif
+
+  assign logo_mob = section.settings.image_mob | image_url: width: 190
+  if section.settings.icon_mob != blank
+    assign logo_mob = section.settings.icon_mob
+  endif
+  if logo_mob == blank
+    assign logo_mob = logo
+  endif
+
+  assign new_list = section.blocks | where: 'type', 'new'
+  assign column_count_list = section.blocks | where: 'type', 'column_count'
+  assign link_list = section.blocks | where: 'type', 'link'
+%}
+
+<div class="header">
+  <div class="header__inner">
+
+    {% liquid
+
+      render 'header-top', my_account: my_account, placeholder: placeholder
+
+      render 'header-logo', logo: logo, logo_mob: logo_mob
+
+      render 'header-desktop', menu: section.settings.menu, new_list: new_list, column_count_list: column_count_list
+      
+      render 'header-mobile', menu: section.settings.menu, new_list: new_list, link_list: link_list, my_account: my_account, login: login
+
+    %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "class": "header-container",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mob",
+      "label": "Image logo (mobile)"
+    },
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Link to svg logo"
+    },
+    {
+      "type": "text",
+      "id": "icon_mob",
+      "label": "Link to svg logo (mobile)"
+    },
+    {
+      "type": "text",
+      "id": "my_account",
+      "label": "My account link text",
+      "default": "My account"
+    },
+    {
+      "type": "text",
+      "id": "my_account_ar",
+      "label": "My account link text (AR)"
+    },
+    {
+      "type": "text",
+      "id": "login",
+      "label": "Login link text",
+      "default": "LOG IN / SUBSCRIBE"
+    },
+    {
+      "type": "text",
+      "id": "login_ar",
+      "label": "Login link text (AR)"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Search placeholder",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_ar",
+      "label": "Search placeholder (AR)"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Menu item \"new\"",
+      "type": "new",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Item title"
+        },
+        {
+          "type": "text",
+          "id": "title_ar",
+          "label": "Item title (AR)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "New"
+        },
+        {
+          "type": "text",
+          "id": "label_ar",
+          "label": "Label (AR)"
+        }
+      ]
+    },
+    {
+      "name": "Column count",
+      "type": "column_count",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Menu Item title"
+        },
+        {
+          "type": "text",
+          "id": "title_ar",
+          "label": "Menu Item title (AR)"
+        },
+        {
+          "type": "range",
+          "id": "column_count",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "label": "Columns in menu",
+          "default": 2
+        }
+      ]
+    },
+    {
+      "name": "Additional mobile link",
+      "type": "link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Link text",
+          "default": "Mobile Link"
+        },
+        {
+          "type": "text",
+          "id": "title_ar",
+          "label": "Link text (AR)"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

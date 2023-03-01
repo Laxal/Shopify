@@ -1,0 +1,12 @@
+<div class="header-logo">
+	<a href="{{ routes.root_url }}" class="header-logo__link" x-intersect:enter.threshold.50="$dispatch('button-scroll-toggle', { show: false })" x-intersect:leave.threshold.50="$dispatch('button-scroll-toggle', { show: true })">
+		{% if logo != blank %}
+			{%- comment -%}theme-check-disable{%- endcomment -%}
+			<img class="header-logo__image--desktop" width="384" height="80" src="{{ logo }}" alt="{{ shop.name | escape }}">
+			<img class="header-logo__image--mobile" width="190" height="39" src="{{ logo_mob }}" alt="{{ shop.name | escape }}">
+			{%- comment -%}theme-check-enable{%- endcomment -%}
+		{% else %}
+			<h1 class="header-logo__title">{{ shop.name }}</h1>
+		{% endif %}
+	</a>
+</div>

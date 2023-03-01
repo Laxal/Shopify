@@ -1,0 +1,94 @@
+<div class="vertical-images">
+	<div class="vertical-images__inner">
+
+		{% for block in section.blocks %}
+			<div class="vertical-images__item">
+				{% liquid 
+					assign image = block.settings.image
+					assign title = block.settings.title
+					
+					
+					if shop.locale == 'ar'
+            if block.settings.image_ar != blank
+              assign image = block.settings.image_ar
+            endif
+            if block.settings.title_ar != blank
+				    	assign title = block.settings.title_ar
+            endif
+					endif
+				%}
+	
+				{% capture image %}
+					<div class="vertical-images__image-wrapper">
+						{% render 'media', image: image, classes: 'vertical-images__image' %}
+					</div>
+				{% endcapture %}
+	
+				{%
+					render 'link'
+					classes: 'vertical-images__block-wrapper'
+					href: block.settings.url
+					inner: image
+				%}
+	
+				{%
+					render 'link'
+					classes: 'vertical-images__link'
+					href: block.settings.url
+					inner: title
+				%}
+	
+			</div>
+		{% endfor %}
+		
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Vertical images",
+  "blocks": [
+    {
+      "name": "Image",
+      "type": "image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_ar",
+          "label": "Image (AR)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Link title"
+        },
+        {
+          "type": "text",
+          "id": "title_ar",
+          "label": "Link title (AR)"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertical images",
+      "blocks": [
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

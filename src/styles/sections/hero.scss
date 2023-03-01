@@ -1,0 +1,154 @@
+.hero {
+	padding-bottom: 10px;
+
+	&__swiper-slide {
+		position: relative;
+	}
+
+	&__swiper-slide-inner {
+		position: relative;
+		overflow: hidden;
+
+		&::before {
+			display: block;
+			padding-top: 56.25%;
+			content: "";
+		}
+
+		&--desktop {
+			display: block;
+		}
+
+		&--mobile {
+			display: none;
+		}
+
+		@include media-max($desktop) {
+			&::before {
+				padding-top: 100%;
+			}
+
+			&--desktop {
+				display: none;
+			}
+
+			&--mobile {
+				display: block;
+			}
+		}
+	}
+
+	svg,
+	&__swiper-slide-media {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	&__swiper-btn {
+		position: absolute;
+		top: 50%;
+		z-index: 9;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		cursor: pointer;
+		transform: translateY(-50%);
+
+		&.swiper-button-disabled {
+			display: none;
+		}
+
+		svg {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		@include media-max(992px) {
+			display: none;
+		}
+	}
+
+	&__swiper-next {
+		right: 30px;
+	}
+
+	&__swiper-prev {
+		left: 30px;
+	}
+
+	&__swiper-pagination {
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		height: 16px;
+		transform: translateY(-50%);
+
+		.swiper-pagination-bullet {
+			display: inline-block;
+			width: 9px;
+			height: 9px;
+			margin: 0 7px;
+			cursor: pointer;
+			background: transparent;
+			border: 1px solid #fff;
+			border-radius: 100%;
+
+			&-active {
+				background: #fff;
+			}
+		}
+	}
+
+	&__swiper-slide-text {
+		display: flex;
+		flex-direction: column;
+		gap: 33px;
+		width: calc(100% - 600px);
+		margin: 34px auto 90px;
+	}
+
+	&__swiper-slide-title {
+		margin: 0;
+		font-family: $font-medium;
+		font-size: 45px;
+		font-weight: 600;
+		font-weight: 400;
+		line-height: 1.15;
+		color: $color-black;
+		text-align: center;
+	}
+
+	&__swiper-slide-description {
+		font-family: $font-regular;
+		font-size: 19px;
+		line-height: 28px;
+		color: $color-black;
+		text-align: center;
+	}
+
+	@include media-max(992px) {
+		&__swiper-slide-text {
+			width: 90%;
+			margin: 34px auto 59px;
+		}
+
+		&__swiper-slide-title {
+			font-size: 25px;
+		}
+
+		&__swiper-slide-description {
+			font-size: 17px;
+		}
+	}
+}

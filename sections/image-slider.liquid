@@ -1,0 +1,85 @@
+<div class="image-slider" x-data="imageSlider" x-init="selector = '.image-slider__swiper--{{ section.id }}'">
+	<div class="image-slider__swiper image-slider__swiper--{{ section.id }} swiper">
+		<div class="image-slider__swiper-wrapper swiper-wrapper">
+
+			{% for block in section.blocks %}
+				{% liquid 
+					assign image = block.settings.image
+					
+					if shop.locale == 'ar'
+						if block.settings.image_ar != blank
+							assign image = block.settings.image_ar
+						endif
+					endif
+				%}
+
+				{% capture image %}
+					{% render 'media', image: image, classes: 'image-slider__image' %}
+				{% endcapture %}
+
+				{%
+					render 'link'
+					classes: 'image-slider__swiper-slide swiper-slide'
+					href: block.settings.url
+					inner: image
+				%}
+
+			{% endfor %}
+		
+		</div>
+
+		<div class="image-slider__swiper-btn image-slider__swiper-next">
+			{% render 'icons', icon: 'hero-next' %}
+		</div>
+
+		<div class="image-slider__swiper-btn image-slider__swiper-prev">
+			{% render 'icons', icon: 'hero-prev' %}
+		</div>
+		
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Image slider",
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_ar",
+          "label": "Image (AR)"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

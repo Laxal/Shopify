@@ -1,0 +1,80 @@
+{%- comment -%}theme-check-disable{%- endcomment -%}
+
+{%- comment -%}
+
+	external_video	video from YouTube or Vimeo
+	classes			additional classes
+	attributes		additional element attributes
+
+	/*** OR ***/
+
+	video 			video src
+	poster			poster for video (image object)
+	classes			additional classes
+	attributes		additional element attributes
+
+	/*** OR ***/
+
+	image			image object
+	classes			additional classes
+	attributes		additional element attributes
+
+	/*** OR ***/
+
+	src 			image src (string)
+	alt				custom image alt (using src)
+	classes			additional classes
+	attributes		additional element attributes
+
+{%- endcomment -%}
+
+{%- if external_video != blank -%}
+	{%- if external_video.type == 'youtube' -%}
+		<iframe
+			class="{{ classes }}"
+			x-data="lazyLoad"
+			x-intersect:enter.once.margin.300px="lazyVideo('https://www.youtube.com/embed/{{ external_video.id }}')"
+			{{ attributes }}
+		></iframe>
+	{%- elsif external_video.type == 'vimeo' -%}
+		<iframe
+			class="{{ classes }}"
+			x-data="lazyLoad"
+			x-intersect:enter.once.margin.300px="lazyVideo('https://player.vimeo.com/video/{{ external_video.id }}')"
+			{{ attributes }}
+		></iframe>
+	{%- endif -%}
+{%- elsif video != blank -%}
+	<video
+		class="{{ classes }}"
+		{{ attributes }}
+		x-data="lazyLoad"
+		{% if poster != blank %}
+			:poster="getAdaptiveSrc({{ poster | json | escape }})"
+		{% endif %}
+		x-intersect:enter.once.margin.0px="lazyVideo('{{ video | escape }}', {{ poster | json | escape }})"
+	></video>
+{%- elsif image != blank -%}
+	<img
+		class="{{ classes }}"
+		{{ attributes }}
+		x-data="lazyLoad"
+		src="{{ image | image_url: width: 10 }}"
+		alt="{{ image.alt | escape }}"
+		width="{{ image.width }}"
+		height="{{ image.height }}"
+		x-intersect:enter.once.margin.300px="lazyImage({{ image | json | escape }})"
+	>
+{%- elsif src != blank -%}
+	<img
+		class="{{ classes }}"
+		{{ attributes }}
+		x-data="lazyLoad"
+		alt="{{ alt | escape }}"
+		x-intersect:enter.once.margin.300px="lazyImage('{{ src | escape }}')"
+	>
+{%- else -%}
+	{{ 'image' | placeholder_svg_tag }}
+{%- endif -%}
+
+{%- comment -%}theme-check-enable{%- endcomment -%}

@@ -1,0 +1,34 @@
+.footer-info {
+	padding-bottom: 95px;
+
+	@include media-max($tablet) {
+		padding-bottom: 10px;
+	}
+
+	&__inner {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		max-width: 1100px;
+		margin: 0 auto 40px;
+
+		@include media-max($tablet) {
+			flex-wrap: wrap;
+		}
+	}
+
+	&__item {
+		font-family: $font-regular;
+		font-size: calc($font-size - 1px);
+		line-height: 1.15;
+		color: $color-dark-grey-1;
+		text-decoration: none;
+		cursor: pointer;
+
+		@include media-max($tablet) {
+			width: 45%;
+			line-height: 1.38;
+			text-align: center;
+		}
+	}
+}

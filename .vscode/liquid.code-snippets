@@ -1,0 +1,129 @@
+{
+	"text 'en' and 'ar'": {
+		"scope": "liquid",
+		"prefix": "set_text",
+		"body": [
+			"{",
+				"\t\"type\": \"text\",",
+				"\t\"id\": \"$1\",",
+				"\t\"label\": \"$2\"",
+			"},",
+			"{",
+				"\t\"type\": \"text\",",
+				"\t\"id\": \"$1_ar\",",
+				"\t\"label\": \"$2 (AR)\"",
+			"}"
+		]
+	},
+	"textarea 'en' and 'ar'": {
+		"scope": "liquid",
+		"prefix": "set_textarea",
+		"body": [
+			"{",
+				"\t\"type\": \"textarea\",",
+				"\t\"id\": \"$1\",",
+				"\t\"label\": \"$2\"",
+			"},",
+			"{",
+				"\t\"type\": \"text\",",
+				"\t\"id\": \"$1_ar\",",
+				"\t\"label\": \"$2 (AR)\"",
+			"}"
+		]
+	},
+	"richtext 'en' and 'ar'": {
+		"scope": "liquid",
+		"prefix": "set_richtext",
+		"body": [
+			"{",
+				"\t\"type\": \"richtext\",",
+				"\t\"id\": \"$1\",",
+				"\t\"label\": \"$2\"",
+			"},",
+			"{",
+				"\t\"type\": \"richtext\",",
+				"\t\"id\": \"$1_ar\",",
+				"\t\"label\": \"$2 (AR)\"",
+			"}"
+		]
+	},
+	"image_picker 'en' and 'ar'": {
+		"scope": "liquid",
+		"prefix": "set_image",
+		"body": [
+			"{",
+				"\t\"type\": \"image_picker\",",
+				"\t\"id\": \"$1\",",
+				"\t\"label\": \"$2\"",
+			"},",
+			"{",
+				"\t\"type\": \"image_picker\",",
+				"\t\"id\": \"$1_ar\",",
+				"\t\"label\": \"$2 (AR)\"",
+			"}"
+		]
+	},
+	"video_url 'en' and 'ar'": {
+		"scope": "liquid",
+		"prefix": "set_video",
+		"body": [
+			"{",
+				"\t\"type\": \"video_url\",",
+				"\t\"id\": \"$1\",",
+				"\t\"label\": \"$2\"",
+			"},",
+			"{",
+				"\t\"type\": \"video_url\",",
+				"\t\"id\": \"$1_ar\",",
+				"\t\"label\": \"$2 (AR)\"",
+			"}"
+		]
+	},
+	"liquid tag": {
+		"scope": "liquid",
+		"prefix": "liq",
+		"body": [
+			"{% liquid \n\t$0\n%}"
+		]
+	},
+	"check arabic locale": {
+		"scope": "liquid",
+		"prefix": "ar",
+		"body": [
+			"if shop.locale == 'ar'",
+			"\t$1",
+			"endif",
+		]
+	},
+	"check arabic locale (with tag)": {
+		"scope": "liquid",
+		"prefix": "ar_tag",
+		"body": [
+			"{% if shop.locale == 'ar' %}",
+			"\t",
+			"{% endif %}",
+		]
+	},
+	"check arabic variable (section)": {
+		"scope": "liquid",
+		"prefix": "check_ar_section",
+		"body": [
+			"assign $1 = section.settings.$1",
+			"",
+			"if section.settings.$1_ar != blank",
+				"\tassign $1 = section.settings.$1_ar",
+			"endif",
+		]
+	},
+	"check arabic variable (block)": {
+		"scope": "liquid",
+		"prefix": "check_ar_block",
+		"body": [
+			"assign $1 = block.settings.$1",
+			"",
+			"if block.settings.$1_ar != blank",
+				"\tassign $1 = block.settings.$1_ar",
+			"endif",
+		]
+	}
+}

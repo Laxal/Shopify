@@ -1,0 +1,16 @@
+<div :class="{ active }" class="header-search-overlay"></div>
+
+<div @click.stop :class="{ active }" :style="`right: ${right}px;`" class="header-search">
+	<div class="header-search__inner">
+
+		<div class="header-search__form">
+			<input x-ref="input" x-model="inputValue" type="text" name="" id="" maxlength="55" autocomplete="off" placeholder="{{ placeholder }}" class="header-search__input {% if shop.locale == 'ar' %}header-search__input--ar{% endif %}">
+
+			<button class="header-search__btn-close" @click="toggle">
+				{% render 'icons', icon: 'icon-close' %}
+			</button>
+
+		</div>
+
+	</div>
+</div>

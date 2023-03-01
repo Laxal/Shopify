@@ -1,0 +1,58 @@
+
+{%liquid
+	assign title = section.settings.title
+	assign text_id = section.settings.text_id
+
+
+if shop.locale == 'ar'
+	if section.settings.title_ar != blank
+		assign title = section.settings.title_ar
+	endif
+	if section.settings.text_id_ar != blank
+		assign text_id = section.settings.text_id_ar
+	endif
+endif
+
+%}
+<div class="grid-section">
+	<div id="landing_menu_parent" class="grid-section__left">
+	</div>
+	<div class="commercial grid-section__right">
+	  <div class="grid-section__right__container">
+		<h1 class="commercial__title">{{title}}</h1>
+		<div class="commercial__text">{{text_id}}</div>
+	  </div>
+	</div>
+  </div>
+  
+  {% schema %}
+	{
+	  "name": "Commercial",
+	  "settings": [
+		  {
+			  "type": "text",
+			  "id": "title",
+			  "label": "Section title",
+			  "default": "Commercial title"
+		  },
+		  {
+			  "type": "text",
+			  "id": "title_ar",
+			  "label": "Section title (AR)"
+		  },
+		  {
+			  "type": "richtext",
+			  "id": "text_id",
+			  "label": "Section text",
+			  "default": "<p>Title: Ipekyol Giyim San. sun. ve Tic. Inc. <br><br>Trade Registry Number: 241296<br><br>Mersis No: 0479 0044 0940 0012<br><br>Headquarters: Bomonti Kazım Orbay Cad. No.35 34381 Şişli/ İstanbul<br><br>Location Provider: Superonline İletişim Hizmetleri A.Ş.<br><br>Phone: 0 (212) 368 01 01</p>"
+		  },
+		  {
+			  "type": "richtext",
+			  "id": "text_id_ar",
+			  "label": "Section text (AR)"
+		  }
+		  
+	  ]
+	}
+  {% endschema %}
+  

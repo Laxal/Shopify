@@ -1,0 +1,160 @@
+<script>
+	window.productColors = {
+		{%- for block in section.blocks -%}
+			{%- if block.settings.name_1 != blank -%}
+				{{ block.settings.name_1 | json }}: {{ block.settings.color_1 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_2 != blank -%}
+				{{ block.settings.name_2 | json }}: {{ block.settings.color_2 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_3 != blank -%}
+				{{ block.settings.name_3 | json }}: {{ block.settings.color_3 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_4 != blank -%}
+				{{ block.settings.name_4 | json }}: {{ block.settings.color_4 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_5 != blank -%}
+				{{ block.settings.name_5 | json }}: {{ block.settings.color_5 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_6 != blank -%}
+				{{ block.settings.name_6 | json }}: {{ block.settings.color_6 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_7 != blank -%}
+				{{ block.settings.name_7 | json }}: {{ block.settings.color_7 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_8 != blank -%}
+				{{ block.settings.name_8 | json }}: {{ block.settings.color_8 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_9 != blank -%}
+				{{ block.settings.name_9 | json }}: {{ block.settings.color_9 | json }},
+			{%- endif -%}
+			{%- if block.settings.name_10 != blank -%}
+				{{ block.settings.name_10 | json }}: {{ block.settings.color_10 | json }},
+			{%- endif -%}
+		{%- endfor -%}
+	}
+</script>
+
+{% schema %}
+{
+  "name": "Product colors",
+  "blocks": [
+    {
+      "name": "Color",
+      "type": "color",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name_1",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_1",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_2",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_2",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_3",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_3",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_4",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_4",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_5",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_5",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_6",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_6",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_7",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_7",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_8",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_8",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_9",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_9",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "name_10",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_10",
+          "label": "Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

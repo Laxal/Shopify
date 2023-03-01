@@ -1,0 +1,161 @@
+.ipekyol-card {
+	width: 100%;
+
+	&__title {
+		width: 100%;
+
+		@include media-min($desktop + 1px) {
+			max-width: 720px;
+		}
+
+		margin: 20px auto;
+
+		h1 {
+			font-family: $font-medium;
+			font-size: calc($font-size + 2px);
+			font-weight: 400;
+			color: $color-dark;
+		}
+	}
+
+	&__image {
+		width: 100%;
+		margin-bottom: 20px;
+
+		img {
+			width: 100%;
+			height: auto;
+
+			// max-width: 100%;
+		}
+	}
+
+	&__textWithImage {
+		@include media-min($desktop + 1px) {
+			max-width: 720px;
+		}
+
+		margin-right: auto;
+		margin-left: auto;
+
+		&__text {
+			width: 100%;
+
+			p {
+				margin-bottom: 30px;
+				font-family: $font-regular;
+				font-size: calc($font-size + 3px);
+				line-height: 1.5;
+
+				strong {
+					font-family: $font-medium;
+					font-size: calc($font-size + 3px);
+					line-height: 1.5;
+					color: $color-dark-grey-1;
+				}
+
+				a {
+					font-family: $font-regular;
+					font-size: calc($font-size + 3px);
+					line-height: 1.5;
+				}
+			}
+
+			h2 {
+				margin-top: 0;
+				margin-bottom: 30px;
+				font-family: $font-medium;
+				font-size: calc($font-size + 3px);
+				font-weight: 400;
+				line-height: 1.5;
+				color: $color-dark-grey-1;
+			}
+
+			img {
+				@include media-min($desktop + 1px) {
+					float: right;
+					width: 51%;
+					height: auto;
+					padding-left: 20px;
+				}
+
+				width: 100%;
+				margin-bottom: 20px;
+			}
+		}
+
+		&__image {
+			background-color: yellow;
+		}
+	}
+
+	&__area {
+		@include media-min($desktop + 1px) {
+			max-width: 720px;
+		}
+
+		padding-left: 0;
+		margin-right: auto;
+		margin-left: auto;
+		list-style: none;
+
+		&__title {
+			margin-top: 20px;
+			margin-bottom: 20px;
+			font-family: $font-medium;
+			font-size: calc($font-size + 2px);
+			font-weight: 400;
+			line-height: 1.5;
+			color: $color-dark;
+		}
+
+		&__list {
+			@include media-min($desktop + 1px) {
+				max-width: 720px;
+			}
+
+			padding-left: 10px;
+			margin-right: auto;
+			margin-left: auto;
+			list-style: none;
+
+			::before {
+				position: absolute;
+				top: -3px;
+				left: -20px;
+				font-size: 20px;
+				content: "\2022";
+			}
+
+			li {
+				position: relative;
+				margin: 0 0 10px;
+				font-family: $font-regular;
+				font-size: calc($font-size + 3px);
+				line-height: 1.5;
+				color: $color-dark-grey-1;
+			}
+		}
+	}
+
+	&__btn {
+		@include media-min($desktop + 1px) {
+			max-width: 720px;
+		}
+
+		margin: 30px auto;
+
+		/* stylelint-disable-next-line no-descending-specificity */
+		a {
+			font-family: $font-regular;
+			font-size: calc($font-size + 3px);
+			line-height: 1.5;
+			color: $color-dark-grey-1;
+			text-transform: none;
+
+			@include media-max($desktop ) {
+				width: 100%;
+			}
+		}
+	}
+}

@@ -1,0 +1,82 @@
+{% liquid 
+	assign title = section.settings.title
+
+	if shop.locale == 'ar'
+		if section.settings.title_ar != blank
+			assign title = section.settings.title_ar
+		endif
+	endif
+%}
+
+{% style %}
+  .product-slider__btn-next--{{ section.id }} {
+    background: url({{ 'arrow-next.svg' | asset_url }}) center no-repeat;
+  }
+  .product-slider__btn-prev--{{ section.id }} {
+    background: url({{ 'arrow-prev.svg' | asset_url }}) center no-repeat;
+  }
+{% endstyle %}
+
+<div class="product-slider" x-data="productSlider" x-init="selectors = { slider: '.product-slider__slider--{{ section.id }}', next: '.product-slider__btn-next--{{ section.id }}', prev: '.product-slider__btn-prev--{{ section.id }}' }">
+	<div class="product-slider__inner">
+
+    <h2 class="product-slider__title">
+			{{ title }}
+		</h2>
+
+		<div class="product-slider__slider-container">
+			
+			<div class="product-slider__slider product-slider__slider--{{ section.id }} swiper">
+				<div class="product-slider__slider-wrapper swiper-wrapper">
+					{% liquid 
+						assign product_blocks = section.blocks | compact
+						for block in product_blocks
+							render 'slide-product-cart' with block.settings.product as product
+						endfor
+					%}
+				</div>
+			</div>
+			
+			<div class="product-slider__btn-next product-slider__btn-next--{{ section.id }} product-slider__btn"></div>
+			<div class="product-slider__btn-prev product-slider__btn-prev--{{ section.id }} product-slider__btn"></div>
+		</div>
+
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Product slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "HIGHLIGHTS"
+    },
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title (AR)"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product slider"
+    }
+  ]
+}
+{% endschema %}

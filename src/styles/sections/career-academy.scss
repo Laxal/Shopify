@@ -1,0 +1,19 @@
+.career-academy {
+	background-color: red;
+
+	&__title {
+		width: 100%;
+		margin: 20px auto;
+
+		@include media-min($desktop + 1px) {
+			max-width: 720px;
+		}
+
+		h1 {
+			font-family: $font-medium;
+			font-size: calc($font-size + 6px);
+			font-weight: 400;
+			color: $color-dark;
+		}
+	}
+}

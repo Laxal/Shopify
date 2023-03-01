@@ -1,0 +1,32 @@
+{% comment %} new_list {% endcomment %}
+{% liquid 
+	assign inner = inner | strip
+	assign classes = classes
+
+	for new in new_list
+		assign title = new.settings.title
+		assign label = new.settings.label
+
+		if shop.locale == 'ar'
+			if new.settings.title_ar != blank
+				assign title = new.settings.title_ar
+			endif
+			if new.settings.label_ar != blank
+				assign label = new.settings.label_ar
+			endif
+		endif
+
+		if title == inner
+			assign classes = classes | append: ' new'
+			assign inner = inner | append: '&nbsp;<small>' | append: label | append: '</small>'
+		endif
+		
+	endfor
+%}
+
+{%
+	render 'link'
+	classes: classes
+	href: href
+	inner: inner
+%}

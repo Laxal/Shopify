@@ -1,0 +1,38 @@
+.footer-links {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	margin-top: 50px;
+
+	@include media-max($desktop) {
+		padding-bottom: 30px;
+		margin-top: 30px;
+	}
+
+	&__inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+
+		@include media-max($desktop) {
+			flex-direction: column;
+		}
+	}
+
+	&__item {
+		padding: 0 20px;
+		margin-bottom: 20px;
+		font-family: $font-medium;
+		font-size: calc($font-size + 4px);
+		font-weight: 400;
+		line-height: 1.15;
+		color: $color-black;
+		text-decoration: none;
+		cursor: pointer;
+
+		@include media-max($desktop) {
+			margin-bottom: 10px;
+			font-size: calc($font-size + 2px);
+		}
+	}
+}

@@ -1,0 +1,63 @@
+{% liquid
+	assign item_active = ''
+	assign current_url = request.path
+
+	for link in menu.links
+		if link.url == current_url
+			assign item_active = link.title
+			break
+		endif
+
+		for sub_link in link.links
+			if sub_link.url == current_url
+				assign item_active = sub_link.title
+				break
+			endif
+
+			for sub_sub_link in sub_link.links
+				if sub_sub_link.url == current_url
+					assign item_active = sub_sub_link.title
+					break
+				endif
+
+			endfor
+		endfor
+	endfor
+
+	if item_active != ''
+		for link in menu.links
+			for sub_link in link.links
+
+				assign index_prev = forloop.index0 | minus: 1
+				assign index_next = forloop.index
+
+				if item_active == sub_link.title
+					assign prev = link.links[index_prev]
+					assign next = link.links[index_next]
+					if index_prev < 0
+						assign prev = blank
+					endif
+					render 'collection-mobile-nav', prev: prev, next: next
+					break
+				endif
+
+				for sub_sub_link in sub_link.links
+					assign index_prev = forloop.index0 | minus: 1
+					assign index_next = forloop.index
+
+					if item_active == sub_sub_link.title
+						assign prev = sub_link.links[index_prev]
+						assign next = sub_link.links[index_next]
+						if index_prev < 0
+							assign prev = blank
+						endif
+						render 'collection-mobile-nav', prev: prev, next: next
+						break
+					endif
+
+				endfor
+
+			endfor
+		endfor
+	endif
+%}

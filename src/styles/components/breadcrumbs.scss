@@ -1,0 +1,43 @@
+.breadcrumbs {
+	padding: 15px 30px;
+	font-family: $font-regular;
+	background: $color-white;
+
+	&__list {
+		padding: 0;
+		padding-inline-start: 0;
+		margin: 0;
+		font-size: calc($font-size - 1px);
+		color: $color-breadcrumb-active;
+		list-style: none;
+	}
+
+	&__item {
+		display: inline-block;
+		line-height: 24px;
+
+		&:not(:first-of-type)::before {
+			content: "/";
+		}
+
+		&:not(&--ar)::before {
+			margin-right: 2px;
+			margin-left: 6px;
+		}
+
+		&--ar::before {
+			margin-right: 6px;
+			margin-left: 2px;
+		}
+	}
+
+	&__link {
+		font-size: $font-size;
+		color: $color-breadcrumb;
+		text-decoration: none;
+
+		&:hover {
+			color: $color-black;
+		}
+	}
+}

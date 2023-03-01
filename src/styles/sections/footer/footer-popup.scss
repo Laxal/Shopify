@@ -1,0 +1,226 @@
+.footer-popup {
+	position: fixed;
+	top: 0%;
+	left: 0;
+	z-index: 9999;
+	width: 100vw;
+	height: 100vh;
+	overflow: scroll;
+
+	&__background {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		min-width: 100vw;
+		min-height: 100vh;
+		background-color: rgb(0 0 0 / 40%);
+	}
+
+	&__wrapper {
+		min-width: 300px;
+		max-width: 700px;
+		height: fit-content;
+		margin: 50px auto;
+		background-color: $color-white;
+
+		@include media-max($tablet) {
+			max-width: calc(100vw - 20px);
+		}
+	}
+
+	&__content {
+		position: relative;
+		width: 100%;
+		min-height: 600px;
+		padding: 20px;
+
+		&__close {
+			position: absolute;
+			top: 14px;
+			right: 20px;
+			cursor: pointer;
+
+			svg {
+				padding: 20px;
+				overflow: visible;
+				background-color: rgb(238 238 238);
+				border-radius: 100%;
+
+				g {
+					transform: translate(-16px, -16px);
+				}
+			}
+		}
+
+		&__blocks {
+			&__title {
+				margin-top: 20px;
+				margin-bottom: 20px;
+
+				h2 {
+					font-family: $font-medium;
+					font-size: calc($font-size + 3px);
+					font-weight: 400;
+					line-height: 1.5;
+				}
+			}
+
+			&__text {
+				margin-right: auto;
+				margin-left: auto;
+				word-break: break-all;
+
+				&__title {
+					margin-top: 0;
+					margin-bottom: 0;
+					font-family: $font-regular !important;
+					font-size: calc($font-size + 2px);
+					font-weight: bold !important;
+					line-height: 1.5;
+					color: $color-dark-grey-1;
+				}
+
+				&__rich {
+					p {
+						margin-bottom: 30px;
+						font-family: $font-regular;
+						font-size: calc($font-size + 3px);
+						line-height: 1.5;
+						color: $color-dark-grey-1;
+
+						a {
+							font-size: calc($font-size + 3px);
+						}
+
+						strong {
+							color: $color-dark-grey-1;
+						}
+					}
+				}
+
+				&__address {
+					p {
+						margin-bottom: 30px;
+						font-family: $font-regular;
+						font-size: calc($font-size + 3px);
+						line-height: 1.15;
+						color: $color-dark-grey-1;
+
+						a {
+							font-size: calc($font-size + 3px);
+						}
+
+						strong {
+							color: $color-dark-grey-1;
+						}
+					}
+				}
+			}
+
+			&__area {
+				padding-left: 0;
+				margin-right: auto;
+				margin-left: auto;
+				word-break: break-all;
+				list-style: none;
+
+				&__title {
+					margin-top: 0;
+					margin-bottom: 0;
+					font-family: $font-regular !important;
+					font-size: calc($font-size + 2px);
+					font-weight: bold !important;
+					line-height: 1.5;
+					color: $color-dark-grey-1;
+				}
+			}
+
+			&__list {
+				position: relative;
+				padding-left: 10px;
+				margin-right: auto;
+				margin-bottom: 0;
+				margin-left: auto;
+				word-break: break-all;
+				list-style: none;
+
+				::before {
+					position: absolute;
+					left: -5px;
+
+					// margin-left: 38px;
+					content: "\2022";
+				}
+
+				&__ar {
+					padding-right: 10px;
+					padding-left: 0;
+
+					::before {
+						right: -5px;
+						left: unset;
+					}
+				}
+
+				li {
+					margin: 0 0 10px;
+					font-family: $font-regular;
+					font-size: calc($font-size + 3px);
+					line-height: 1.5;
+					color: $color-dark-grey-1;
+				}
+
+				&__rich {
+					p {
+						margin-bottom: 30px;
+						font-family: $font-regular;
+						font-size: calc($font-size + 3px);
+						line-height: 1.5;
+						color: $color-dark-grey-1;
+
+						strong {
+							font-family: $font-medium;
+							font-size: calc($font-size + 3px);
+							line-height: 1.5;
+							color: $color-dark-grey-1;
+						}
+					}
+
+					&__above {
+						p {
+							margin-top: 0;
+							margin-bottom: 0;
+							margin-bottom: 30px;
+							margin-left: 19px;
+							font-family: $font-regular;
+							font-size: calc($font-size + 3px);
+							line-height: 1.5;
+							color: $color-dark-grey-1;
+
+							strong {
+								font-family: $font-medium;
+								font-size: calc($font-size + 3px);
+								line-height: 1.5;
+								color: $color-dark-grey-1;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&__disabled {
+		display: none;
+	}
+	/* stylelint-disable-next-line selector-class-pattern */
+	.reduced_line_height {
+		p {
+			line-height: 1.15;
+
+			a {
+				line-height: 1.15;
+			}
+		}
+	}
+}

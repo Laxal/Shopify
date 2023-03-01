@@ -1,0 +1,452 @@
+{% assign title = section.settings.title %}
+{% assign placeholder = section.settings.placeholder %}
+{% assign condition = section.settings.condition %}
+{% assign checkbox_check = section.settings.checkbox_check %}
+{% assign input_err_empty = section.settings.input_err_empty %}
+{% assign input_err_invalid = section.settings.input_err_invalid %}
+{% assign subscription_successful = section.settings.subscription_successful %}
+
+
+{% if shop.locale == 'ar' %}
+
+{% if section.settings.title_ar != blank %}
+{% assign title = section.settings.title_ar %}
+{% endif %}
+
+{% if section.settings.placeholder_ar != blank %}
+{% assign placeholder = section.settings.placeholder_ar %}
+{% endif %}
+
+{% if section.settings.condition_ar != blank %}
+{% assign condition = section.settings.condition_ar %}
+{% endif %}
+
+{% if section.settings.checkbox_check_ar != blank %}
+{% assign checkbox_check = section.settings.checkbox_check_ar %}
+{% endif %}
+
+{% if section.settings.input_err_empty_ar != blank %}
+{% assign input_err_empty = section.settings.input_err_empty_ar %}
+{% endif %}
+
+{% if section.settings.input_err_invalid_ar != blank %}
+{% assign input_err_invalid = section.settings.input_err_invalid_ar %}
+{% endif %}
+
+{% if section.settings.subscription_successful_ar != blank %}
+{% assign subscription_successful = section.settings.subscription_successful_ar %}
+{% endif %}
+
+{% endif %}
+
+<div class="footer-subscribe" x-data="footerSubscribe">
+	<div class="footer-subscribe__inner container">
+		<div class="footer-subscribe__text">
+			<h2 class="footer-subscribe__title">
+				{{ title }}
+			</h2>
+		</div>
+
+		{% form 'customer' %}
+
+		<div class="footer-subscribe__form">
+			<div class="footer-subscribe__input-wrapper">
+				<input type="hidden" name="contact[tags]" value="newsletter">
+				<input x-model="inputValue" type="email" name="contact[email]" class="footer-subscribe__input
+					{% if shop.locale == 'ar' %}footer-subscribe__input__ar{%endif%}"
+					placeholder="{{ placeholder }}" @keydown.enter.prevent="submit">
+				<button @click.prevent="submit" class="footer-subscribe__submit {% if shop.locale == 'ar' %}footer-subscribe__submit__ar{%endif%}" id="subscribe_submit">
+					<span x-show="!loading">{%render 'icons',icon:'icon-newsletter'%}</span>
+					<span x-show="loading">{% render 'media', src: 'https://img2-ipekyol.mncdn.com/ipekyol/frontend/images/loading.svg' ,
+						classes: "footer-subscribe__loading"%}</span>
+					
+				</button>
+			</div>
+			<div class="footer-subscribe__error" x-show="!inputValue && inputChecked">{{input_err_empty}}</div>
+			<div class="footer-subscribe__error" x-show="isValidEmail && inputChecked && inputValue">
+				{{input_err_invalid}}
+			</div>
+			<div class="footer-subscribe__condition">
+				<div class="footer-subscribe__checkbox">
+					<span x-show="!cheboxChecked" @click="changeCheckboxStatus">{%render 'icons',
+						icon:'icon-checkbox'
+						%}</span>
+					<span x-show="cheboxChecked" @click="changeCheckboxStatus">{% render 'icons',
+						icon:'icon-checkbox-active' %}</span>
+				</div>
+				<div>
+					{{condition}}
+				</div>
+			</div>
+			<div class="footer-subscribe__error" x-show="!cheboxChecked && inputChecked">
+				{{checkbox_check}}
+			</div>
+
+			{%- if form.errors -%}
+			
+			{%- endif -%}
+			{%- if form.posted_successfully? -%}
+			<div class="footer-subscribe__successful">
+				<span class="footer-subscribe__successful__text">
+					{{subscription_successful}}
+				</span>
+			</div>
+			{%- endif -%}
+		</div>
+		{% endform %}
+	</div>
+</div>
+{% assign popup_display = section.settings.popup_display %}
+
+<div class="footer-popup {% if popup_display == false%}footer-popup__disabled{% endif %}">
+	<div class="footer-popup__background close_action">
+		<div class="footer-popup__wrapper">
+			<div  class="footer-popup__content">
+				<span class="footer-popup__content__close close_action">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">
+					<g>
+						<path fill="#020202" d="M17.677,16l-0.017,0.018l5.045,5.53l-1.264,1.16L16.5,17.29l-4.942,5.417l-1.263-1.159l5.044-5.53   l-0.016-0.017l0.017-0.019l-5.045-5.53l1.263-1.16L16.5,14.71l4.941-5.417l1.264,1.159l-5.044,5.53L17.677,16L17.677,16z    M16.369,15.664l0.454,0.497l-0.192,0.175l-0.454-0.497L16.369,15.664z M16.369,16.338l-0.193-0.177l0.455-0.499l0.193,0.177   L16.369,16.338z M21.505,21.293l0.144,0.157l-0.01,0.204l-0.199-0.01l-0.145-0.16L21.505,21.293z M11.705,21.486l-0.145,0.16   l-0.2,0.008l-0.009-0.204l0.144-0.157L11.705,21.486z M11.495,10.707l-0.144-0.157l0.01-0.204l0.199,0.009l0.145,0.16   L11.495,10.707z M21.295,10.514l0.145-0.16l0.201-0.008l0.008,0.204l-0.144,0.157L21.295,10.514L21.295,10.514z"/>
+					</g>
+					</svg>
+				</span>
+				{% if section.blocks.size >0 %}
+					{% for block in section.blocks %}
+					    {% if block.type == 'title' %}
+							{%liquid
+								assign section_title = block.settings.section_title
+								assign text_id = block.settings.text_id
+							  
+							  if shop.locale == 'ar'
+								  if block.settings.section_title_ar != blank
+								  assign section_title = block.settings.section_title_ar
+								endif
+								  if block.settings.text_id_ar != blank
+								assign text_id = block.settings.text_id_ar
+								endif
+							  endif
+							%}
+							<div class="footer-popup__content__blocks__title">
+							  {% if section_title != blank %}
+								<h2>{{section_title}}</h2>
+							  {% endif %}
+							</div>
+						{% elsif block.type == 'text' %}
+							{%liquid
+							  assign section_title = block.settings.section_title
+							  assign text_id = block.settings.text_id
+							  assign address=block.settings.address
+							if shop.locale == 'ar'
+								if block.settings.section_title_ar != blank
+								assign section_title = block.settings.section_title_ar
+							  endif
+								if block.settings.text_id_ar != blank
+							  assign text_id = block.settings.text_id_ar
+							  endif
+							endif
+							%}
+							
+						  <div class="footer-popup__content__blocks__text ">
+							{% if section_title != blank %}
+							  <h2 class="footer-popup__content__blocks__text__title">{{section_title}}</h2>
+							{% endif %}
+							{% if address == true %}
+								<address class="footer-popup__content__blocks__text__address">{{text_id}}</address>
+							{% else %}
+							<div class="footer-popup__content__blocks__text__rich">{{text_id}}</div>
+							{% endif %}
+						  </div>	
+						  {% elsif block.type == 'list' %}
+							{%liquid
+							  assign list_area = block.settings.list_area
+							  assign title = block.settings.title
+							  assign text_id = block.settings.text_id
+							  assign text_id_above = block.settings.text_id_above
+							  
+							  if shop.locale == 'ar' 
+								  if block.settings.title_ar != blank
+									assign title = block.settings.title_ar
+								  endif
+								  if block.settings.list_area_ar != blank
+								 	 assign list_area = block.settings.list_area_ar
+								  endif
+								  if block.settings.text_id_ar != blank
+								 	 assign text_id = block.settings.text_id_ar
+								  endif
+								  if block.settings.text_id_ar != blank
+								 	 assign text_id_above = block.settings.text_id_above_ar
+								  endif
+							  endif 
+							  assign list =list_area | split: '/' 
+							  %}
+							  <div class="footer-popup__content__blocks__title" >
+								{% if title!= blank %}
+								  <h2 class="footer-popup__content__blocks__area__title">{{title}}</h2>
+								{% endif %}
+								{% if text_id_above != blank %}
+									<div class="footer-popup__content__blocks__list__rich__above">{{text_id_above}}</div>
+								{% endif %}
+								<ul class="footer-popup__content__blocks__list {% if shop.locale == 'ar' %}footer-popup__content__blocks__list__ar{% endif %}" style="{% if shop.locale == 'ar' %}margin-right:{{block.settings.margin}}{%else%}margin-left:{{block.settings.margin}}{% endif %}px">
+								  {% for item in list %}
+									<li >{{item | strip}}</li>
+								  {% endfor %}
+								 
+								</ul>
+								{% if text_id != blank %}
+								<div class="footer-popup__content__blocks__list__rich">{{text_id}}</div>
+								{% endif %}
+							  </div>
+						{%endif%}
+					{%endfor%}
+				{%endif%}
+			</div>
+		</div>
+	</div> 
+</div>
+
+<script>
+	const subcribe = document.getElementById('contact_form')
+	if (subcribe !== null) {
+		subcribe.addEventListener('invalid', (function () {
+			return function (e) {
+				e.preventDefault();
+			};
+		})(), true);
+	}	
+	const footer_popup=document.querySelector('.footer-popup')
+	if(footer_popup != null){
+	const condition= document.querySelector('.footer-subscribe__condition')
+	const popup=condition.querySelectorAll('a')
+	
+	popup.forEach(element => {
+		if(element.getAttribute('href')=="#")
+		element.removeAttribute('title')
+		element.removeAttribute('href')
+		element.addEventListener('click',()=>{
+			footer_popup.classList.remove('footer-popup__disabled')
+		})
+	});
+
+	const close_elements=document.querySelectorAll('.close_action')
+	close_elements.forEach(element => {
+	element.addEventListener('click',(e)=>{
+		if(e.target.closest('.footer-popup__wrapper')== null){
+			footer_popup.classList.add('footer-popup__disabled')
+		}
+	})
+	});
+	const close_icon=document.querySelector('.footer-popup__content__close')
+	close_icon.addEventListener('click',()=>{
+		footer_popup.classList.add('footer-popup__disabled')
+	})
+	}
+	
+
+</script>
+
+{% schema %}
+{
+"name": "Footer subscribe",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Title",
+"default": "Sign up to be the first to know about campaigns and innovations"
+},
+{
+"type": "text",
+"id": "title_ar",
+"label": "Title (AR)"
+},
+{
+"type": "text",
+"id": "placeholder",
+"label": "Input placeholder",
+"default": "Enter your e-mail address"
+},
+{
+"type": "text",
+"id": "placeholder_ar",
+"label": "Input placeholder (AR)"
+},
+{
+"type": "richtext",
+"id": "condition",
+"label": "Condition",
+"default": "<p>I confirm confidentiality. With my express consent, I allow e-mail and/or SMS to be sent to me to be informed about campaigns, products and innovations.Your e-mail address is collected so that you can be informed about campaigns, products and innovations as an e-bulletin member. You can find detailed information about the processing of personal data here.</p>",
+"info":"You can create a link to the condition pop-up by adding a link in the text box (for example, paste the link URL #). Example: href = \"#\""
+},
+
+{
+"type": "richtext",
+"id": "condition_ar",
+"label": "Condition (AR)"
+},
+{
+"type": "text",
+"id": "input_err_empty",
+"label": "Input error if the field is empty",
+"default": "Email field cannot be left blank"
+},
+{
+"type": "text",
+"id": "input_err_empty_ar",
+"label": "Input error if the field is empty (AR)"
+},
+{
+"type": "text",
+"id": "input_err_invalid",
+"label": "Input error if field is invalid",
+"default": "Please enter a valid e-mail address"
+},
+{
+"type": "text",
+"id": "input_err_invalid_ar",
+"label": "Input error if field is invalid (AR)"
+},
+{
+"type": "text",
+"id": "checkbox_check",
+"label": "Error check message",
+"default": "Please tick the checkboxes"
+},
+{
+"type": "text",
+"id": "checkbox_check_ar",
+"label": "Error check message (AR)"
+},
+{
+"type": "text",
+"id": "subscription_successful",
+"label": "Text when the subscription is successful",
+"default": "Thanks for subscribing"
+},
+{
+"type": "text",
+"id": "subscription_successful_ar",
+"label": "Text when the subscription is successful (AR)"
+},
+{
+  "type": "checkbox",
+  "id": "popup_display",
+  "label": "Show/hide popup",
+  "default": false,
+  "info": "Checkbox should be enabled only for popup customize"
+}
+],"blocks":[
+	{
+        "type": "title",
+        "name": "Title",
+        "settings":[
+          {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section title",
+			"default": "Privacy Rules, Personal Data Protection Policy and Communication Information"
+          },
+          {
+            "type": "text",
+            "id": "section_title_ar",
+            "label": "Section title (AR)"
+          }
+        ]
+      },
+	  {
+        "type": "text",
+        "name": "Text",
+        "settings":[
+          {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section title"
+          },
+          {
+            "type": "text",
+            "id": "section_title_ar",
+            "label": "Section title (AR)"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id",
+            "label": "Section text",
+            "default": "<p>We may transfer some of the personal data we collect to our dealers in accordance with legal regulations and to our business partners within the framework of the campaigns we organize with your permission, and collect your personal data from them.<br><br>This personal data can be used to process your transactions and provide you with products and payment options.</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_ar",
+            "label": "Section text (AR)"
+          },
+		  {
+			  "type": "checkbox",
+			  "id": "address",
+			  "label": "address style",
+			  "default": false,
+			  "info": "Enable it for address styles fot this section"
+		  }
+        ]
+      },
+	  {
+        "type": "list",
+        "name": "List",
+        "settings":[
+          {
+            "type": "text",
+            "id": "title",
+            "label": "List title",
+            "default": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_above",
+            "label": "Section text above list",
+            "default": "<p>For What Purposes Do We Use Your Data?</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_above_ar",
+            "label": "Section text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "title_ar",
+            "label": "List title (AR)"
+          },
+          {
+            "type": "textarea",
+            "id": "list_area",
+            "label": "List text",
+            "info" : "To make a new item in the list - paste symbol \"/\" .Example: \"first row / second row / third row\"",
+            "default": "Basic personal information such as your name, TCKN, address, e-mail address and date of birth;/Your shopping history;/Data collected within the scope of İpekyol Card, Machka Card and Twist Card;/Your marketing and communication preferences."
+          },
+          {
+            "type": "textarea",
+            "id": "list_area_ar",
+            "label": "List text (AR)",
+            "info" : "To make a new item in the list - paste symbol \"/\" .Example: first row / second row / third row"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id",
+            "label": "Section text under list",
+            "default": "<p>We may transfer some of the personal data we collect to our dealers in accordance with legal regulations and to our business partners within the framework of the campaigns we organize with your permission, and collect your personal data from them.<br><br>This personal data can be used to process your transactions and provide you with products and payment options.</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_ar",
+            "label": "Section text (AR)"
+          },
+		  {
+			  "type": "range",
+			  "id": "margin",
+			  "min": -50,
+			  "max": 50,
+			  "step": 1,
+			  "unit": "px",
+			  "label": "Enter margin for the list",
+			  "default": 0
+		  }
+        ]
+      }
+]
+}
+{% endschema %}

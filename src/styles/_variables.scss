@@ -1,0 +1,28 @@
+/* screen sizes */
+$laptop: 1440px;
+$desktop: 1024px;
+$tablet: 768px;
+$mobile-large: 425px;
+$mobile: 375px;
+
+/* fonts */
+$font-regular: var(--font-regular);
+$font-medium: var(--font-medium);
+
+/* base font size */
+$font-size: var(--font-size-base);							// 14px
+
+/* colors */
+$color-white: var(--color-white);							// #ffffff
+$color-red: var(--color-red);								// #a40000
+$color-light-grey: var(--color-light-grey);					// #eeeeee
+$color-grey: var(--color-grey);								// #cccccc
+$color-dark-grey-1: var(--color-dark-grey-1);				// #696b71
+$color-dark-grey-2: var(--color-dark-grey-2);				// #666666
+$color-dark: var(--color-dark);								// #202020
+$color-black: var(--color-black);							// #000000
+$color-breadcrumb: var(--color-breadcrumb);					// #9b9b9b
+$color-breadcrumb-active: var(--color-breadcrumb-active);	// #cecfd4
+$color-errors: var(--color-errors);                         // #e72f2f
+$color-green: var(--color-green);                           // #18C641
+$color-light-grey-2: var(--color-light-grey-2);			    // #f8f8f8

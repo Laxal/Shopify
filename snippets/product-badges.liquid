@@ -1,0 +1,11 @@
+{%- comment -%}theme-check-disable{%- endcomment -%}
+{% for tag in product.tags %}
+	{% assign parts = tag | split: '::' %}
+	{% assign prefix = parts | first %}
+
+	{% if prefix == 'badge' %}
+		{% assign badge = parts | last %}
+		<div class="product-badge">{{ badge }}</div>
+	{% endif %}
+
+{% endfor %}

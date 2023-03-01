@@ -1,0 +1,78 @@
+<div>
+	{% if section.blocks.size > 0 %}
+
+	<div class="footer-icons">
+		<div class="footer-icons__inner container">
+
+			{% for block in section.blocks %}
+
+			{% assign title = block.settings.title %}
+
+			{% if shop.locale == 'ar' %}
+
+			{% if block.settings.title_ar != blank %}
+			{% assign title = block.settings.title_ar %}
+			{% endif %}
+
+			{% endif %}
+
+			<a href="{{ block.settings.url }}" class="footer-icons__item" style="min-width:{{section.settings.icon_height}}px;min-height={{section.settings.icon_height}}px">
+				{% assign variable = 'style=width:' | append: section.settings.icon_height | append: 'px;'%}
+			   
+			   {% render 'media', src: block.settings.icon,
+			   attributes: variable %}
+				<div class="footer-icons__item-text">{{ title }}</div>
+			</a>
+
+			{% endfor %}
+		</div>
+	</div>
+
+	{% endif %}
+</div>
+{% schema %}
+{
+"name": "Footer icons with text",
+"settings": [
+{
+"type": "range",
+"id": "icon_height",
+"label": "Icons width",
+"min": 10,
+"max": 100,
+"default": 25
+}
+],
+"blocks": [
+{
+"name": "Icon with text",
+"type": "icon_with_text",
+
+"settings": [
+{
+"type": "text",
+"id": "icon",
+"label": "Link to icon from files"
+},
+
+{
+"type": "text",
+"id": "title",
+"label": "Link text",
+"default": "Link text"
+},
+{
+"type": "text",
+"id": "title_ar",
+"label": "Link text (AR)"
+},
+{
+"type": "url",
+"id": "url",
+"label": "Link"
+}
+]
+}
+]
+}
+{% endschema %}

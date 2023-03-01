@@ -1,0 +1,75 @@
+<template x-if="filters">
+	<div :class="{ active: active == 'filter' }" class="collection-filters">
+		<div class="collection-filters__inner">
+			<div class="collection-filters__filter-container">
+	
+				{% assign filters = collection.filters | where: 'type', 'list' %}
+	
+				{%- for filter in filters offset: 1 -%}
+					{% liquid 
+						assign filter_label = filter.label
+						assign filter_label_json = filter_label | json | escape
+					%}
+					<div class="collection-filters__filter-item" x-show="!emptyFilters.includes({{ filter_label_json }})">
+						<div class="collection-filters__filter-title">
+							{{ filter_label }}
+						</div>
+						<div class="collection-filters__filter-list{% if filter_label == 'Color' or filter_label == 'Colour' %} collection-filters__filter-list--flex{% endif %}">
+	
+							{% for value in filter.values %}
+								{% liquid 
+									assign value_label = value.label
+									assign value_label_json = value_label | json | escape
+								%}
+									<div
+										x-show="!filters[{{ filter_label_json }}].inactiveValues.includes({{ value_label_json }})"
+										x-collapse
+										class="collection-filters__filter-option"
+									>
+	
+										<input
+											x-model="filters[{{ filter_label_json }}].activeValues"
+											style="display: none;"
+											type="checkbox"
+											name="filter-option"
+											id="{{ value_label | escape }}"
+											value="{{ value_label | escape }}"
+										>
+										<label
+											
+											:class="{ active: filters[{{ filter_label_json }}].activeValues.includes({{ value_label_json }}) }"
+											class="collection-filters__filter-name" for="{{ value.label | escape }}"
+										>
+											{% if filter_label == 'Color' or filter_label == 'Colour' %}
+												<span
+													class="collection-filters__color-icon"
+													x-data="collectionColorItem"
+													x-init="setColor({{ value_label_json }})"
+													x-show="color"
+													:style="`background: ${color};`"
+												></span>
+											{% endif %}
+
+											{{ value.label }}
+										</label>
+	
+									</div>
+								
+							{% endfor %}
+	
+						</div>
+					</div>
+				{%- endfor -%}
+	
+			</div>
+			<div class="collection-filters__btn-list">
+				<div @click="deselect" x-show="filterActive" class="collection-filters__btn-deselect">
+					{{ btn_reset }}
+				</div>
+				<div @click="active = ''" class="collection-filters__btn-ok btn btn__secondary">
+					{{ btn_ok }}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

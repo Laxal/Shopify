@@ -1,0 +1,8 @@
+node_modules
+package-lock.json
+assets/index.js
+assets/index.css
+assets/index.js.map
+assets/index.css.map
+.DS_Store
+variables

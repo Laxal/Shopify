@@ -1,0 +1,41 @@
+.grid-section {
+	@include media-min($desktop + 1px) {
+		display: grid;
+		grid-template-areas: ". AAA BBB .";
+		grid-template-columns: minmax(0, 20px) minmax(250px, 0) minmax(0, 75%) minmax(0, 20px);
+		column-gap: 15px;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+
+	&__left {
+		@include media-min($desktop + 1px) {
+			grid-area: AAA;
+		}
+	}
+
+	&__right {
+		padding: 20px 15px;
+		margin: 0 auto;
+		margin-bottom: 40px;
+
+		&__container {
+			@include media-min($desktop + 1px) {
+				max-width: 720px;
+				margin-right: auto;
+				margin-left: auto;
+			}
+		}
+
+		@include media-min($desktop + 1px) {
+			grid-area: BBB;
+			padding: 20px;
+			border-radius: 4px;
+		}
+	}
+
+	/* stylelint-disable-next-line selector-id-pattern */
+	#landing_menu_parent {
+		position: relative;
+	}
+}

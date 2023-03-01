@@ -1,0 +1,65 @@
+{% assign currentPage = page.url  %}
+<div class="about_us" x-data>
+  <div class="about_us__menu" id="landing_menu_parent">
+  </div>
+  <div class="about_us__content">
+    {% if section.blocks.size >0 %}
+      {% for block in section.blocks %}
+        {% assign block_text = block.settings.block_text %}
+        {%if shop.locale == 'ar'%}
+          {% if block.settings.block_text_ar != blank %}
+            {% assign block_text = block.settings.block_text_ar %}
+          {%endif%}
+        {%endif%}
+        
+       <div class="about_us__block">
+        <div class="about_us__block__image">
+          {% render 'media', image: block.settings.image %}
+        </div>
+        <div  class="about_us__block__text">
+          {{block_text}}
+        </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "About us",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "Block",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "richtext",
+            "id": "block_text",
+            "label": "Block text",
+            "default": "<p>Joining the Turkish ready-made clothing industry with its establishment in 1986, Ipekyol opened its first store on Rumeli Avenue in Nişantaşı in 1989. Today, it offers its products for sale in 10 countries, including Azerbaijan, Bahrain, United Arab Emirates, Kazakhstan, Cyprus, Northern Iraq, Kuwait, Qatar, Lebanon, Saudi Arabia, with 242 stores in the country and 48 stores abroad.For years, it has been the first choice of many successful women in the clothing industry and has taken its place among the most prestigious ready-made clothing brands of today. It has written its name in the world of fashion with innovative, original and striking designs for local and global markets.<p>"
+          },
+          {
+            "type": "richtext",
+            "id": "block_text_ar",
+            "label": "Block text (AR)"
+          }
+          
+        ]
+      }
+    ]
+    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

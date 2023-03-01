@@ -1,0 +1,54 @@
+<template x-if="filters">
+	<div :class="{ active: active == 'sort' }" class="collection-sort {% if shop.locale == 'ar' %}collection-sort--ar{% endif %}">
+		<div class="collection-sort__inner">
+			<div class="collection-sort__list">
+
+				<div class="collection-sort__item">
+					<input x-model="filters['Sort by'].activeValue" style="display: none;" type="radio" name="sort-by" id="created-descending" value="created-descending">
+					<label :class="{ active: filters['Sort by'].activeValue == 'created-descending' }" class="collection-sort__name" for="created-descending">
+						<span class="collection-sort__icon" x-show="filters['Sort by'].activeValue != 'created-descending'">{% render 'icons', icon: 'icon-checkbox' %}</span>
+							<span class="collection-sort__icon" x-show="filters['Sort by'].activeValue == 'created-descending'">{% render 'icons', icon: 'icon-checkbox-active' %}</span>
+							<span>{{ sort_new }}</span>
+					</label>
+				</div>
+
+				<div class="collection-sort__item">
+					<input x-model="filters['Sort by'].activeValue" style="display: none;" type="radio" name="sort-by" id="price-ascending" value="price-ascending">
+					<label :class="{ active: filters['Sort by'].activeValue == 'price-ascending' }" class="collection-sort__name" for="price-ascending">
+						<span class="collection-sort__icon" x-show="filters['Sort by'].activeValue != 'price-ascending'">{% render 'icons', icon: 'icon-checkbox' %}</span>
+						<span class="collection-sort__icon" x-show="filters['Sort by'].activeValue == 'price-ascending'">{% render 'icons', icon: 'icon-checkbox-active' %}</span>
+						<span>{{ sort_price_low }}</span>
+					</label>
+				</div>
+
+				<div class="collection-sort__item">
+					<input x-model="filters['Sort by'].activeValue" style="display: none;" type="radio" name="sort-by" id="price-descending" value="price-descending">
+					<label :class="{ active: filters['Sort by'].activeValue == 'price-descending' }" class="collection-sort__name" for="price-descending">
+						<span class="collection-sort__icon" x-show="filters['Sort by'].activeValue != 'price-descending'">{% render 'icons', icon: 'icon-checkbox' %}</span>
+						<span class="collection-sort__icon" x-show="filters['Sort by'].activeValue == 'price-descending'">{% render 'icons', icon: 'icon-checkbox-active' %}</span>
+						<span>{{ sort_price_high }}</span>
+					</label>
+				</div>
+
+				<div class="collection-sort__item">
+					<input x-model="filters['Sort by'].activeValue" style="display: none;" type="radio" name="sort-by" id="manual" value="manual">
+					<label :class="{ active: filters['Sort by'].activeValue == 'manual' }" class="collection-sort__name" for="manual">
+						<span class="collection-sort__icon" x-show="filters['Sort by'].activeValue != 'manual'">{% render 'icons', icon: 'icon-checkbox' %}</span>
+						<span class="collection-sort__icon" x-show="filters['Sort by'].activeValue == 'manual'">{% render 'icons', icon: 'icon-checkbox-active' %}</span>
+						<span>{{ sort_discount }}</span>
+					</label>
+				</div>
+
+				<div class="collection-sort__item collection-sort__item--mobile">
+					<input x-model="availability" style="display: none;" type="checkbox" name="show-sold-out2" id="show-sold-out2">
+					<label :class="{ active: availability }" class="collection-sort__name" for="show-sold-out2">
+						<span class="collection-sort__icon" x-show="!availability">{% render 'icons', icon: 'icon-checkbox' %}</span>
+						<span class="collection-sort__icon" x-show="availability">{% render 'icons', icon: 'icon-checkbox-active' %}</span>
+						<span>{{ availability_text }}</span>
+					</label>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</template>

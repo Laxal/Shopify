@@ -1,0 +1,41 @@
+.button-scroll-top {
+	position: fixed;
+	bottom: 20px;
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 46px;
+	cursor: pointer;
+	visibility: hidden;
+	background: #eee;
+	border-radius: 100%;
+	opacity: 0;
+	transition: all 0.2s ease;
+
+	&:not(&--ar) {
+		right: 20px;
+	}
+
+	&--ar {
+		left: 20px;
+	}
+
+	&.active {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	svg {
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		font-size: 24px;
+		vertical-align: middle;
+		fill: $color-dark;
+		stroke: $color-dark;
+		stroke-width: 0;
+		transform: rotate(-90deg);
+	}
+}

@@ -1,0 +1,166 @@
+{% liquid 
+	assign id = 'mobile-menu'
+	assign popup_direction = 'left'
+
+	if shop.locale == 'ar'
+		assign popup_direction = 'right'
+	endif
+%}
+
+{% capture mobile_menu %}
+<div class="header-mobile" x-data="headerMobile">
+	<div class="header-mobile__inner">
+		
+		<div class="header-mobile__header">
+
+			<div class="header-mobile__account">
+				{% if customer %}
+					<a class="header-mobile__home-icon" href="{{ routes.root_url }}">
+						{% render 'icons': icon: 'home' %}
+					</a>
+					<a class="header-mobile__account-link" href="{{ routes.account_url }}">
+						{{ my_account }}
+					</a>
+				{% else %}
+					<a class="header-mobile__home-icon" href="{{ routes.root_url }}">
+						{% render 'icons': icon: 'home' %}
+					</a>
+					<a class="header-mobile__account-link" href="{{ routes.account_login_url }}">
+						{{ login }}
+					</a>
+				{% endif %}
+			</div>
+
+			<div class="header-mobile__close-btn" @click="closePopup = '{{ id }}'">
+				{% render 'icons', icon: 'icon-close' %}
+			</div>
+
+		</div>
+		<div class="header-mobile__tab-list">
+			{% for link in menu.links %}
+				<div
+					class="header-mobile__tab animate-border-bottom"
+					:class="{ active: tab === {{ link.title | json | escape }} }"
+					@click="tab = {{ link.title | json | escape }}"
+					{% if forloop.first %}
+					x-init="tab = {{ link.title | json | escape }}"
+					{% endif %}
+				>
+					{% liquid 
+						assign classes = 'header-mobile__tab-inner'
+						if shop.locale == 'ar'
+							assign classes = 'header-mobile__tab-inner header-mobile__tab-inner--ar'
+						endif
+					%}
+					{% if link.links != blank %}
+						<span class="{{ classes }}">{{ link.title }}</span>
+					{% else %}
+						{%
+							render 'link'
+							classes: classes
+							href: link.url
+							inner: link.title
+						%}
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+
+		<div class="header-mobile__body">
+
+			{% for link in menu.links %}
+				{% if link.links != blank %}
+					<div class="header-mobile__accordion-list" x-show="tab === {{ link.title | json | escape }}">
+					
+						{% for sub_link in link.links %}
+
+							<div class="header-mobile__accordion-item">
+
+								<div class="header-mobile__accordion-title" @click="accordion = {{ sub_link.title | json | escape }}">
+									{% liquid 
+										assign classes = 'header-mobile__accordion-main-text'
+										if shop.locale == 'ar'
+											assign classes = 'header-mobile__accordion-main-text header-mobile__accordion-main-text--ar'
+										endif
+									%}
+									{% if sub_link.links != blank %}
+										<span class="{{ classes }}">{{ sub_link.title }}</span>
+									{% else %}
+										{%
+											render 'link'
+											classes: classes
+											href: sub_link.url
+											inner: sub_link.title
+										%}
+									{% endif %}
+								</div>
+
+								{% if sub_link.links != blank %}
+									<div x-show="accordion === {{ sub_link.title | json | escape }}" class="header-mobile__accordion-content">
+										<ul class="header-mobile__sub-list {% if shop.locale == 'ar' %}header-mobile__sub-list--ar{% endif %}">
+											
+											{% for sub_sub_link in sub_link.links %}
+												<li class="header-mobile__sub-item">
+													{%
+														render 'header-link'
+														classes: 'header-mobile__sub-link'
+														href: sub_sub_link.url
+														inner: sub_sub_link.title
+														new_list: new_list
+													%}
+												</li>
+											{% endfor %}
+										</ul>
+									</div>
+								{% endif %}
+
+							</div>
+							
+						{% endfor %}
+
+					</div>
+				{% endif %}
+			{% endfor %}
+			
+		</div>
+		
+		{% if link_list.size > 0 %}
+			<div class="header-mobile__footer">
+				<ul class="header-mobile__footer-list">
+
+					{% for block in link_list %}
+						{% liquid 
+							assign title = block.settings.title
+						
+							if shop.locale == 'ar'
+								if block.settings.title_ar != blank
+									assign title = block.settings.title_ar
+								endif
+							endif
+						%}
+
+						<li class="header-mobile__footer-item">
+							{%
+								render 'link'
+								classes: 'header-mobile__footer-link'
+								href: block.settings.url,
+								inner: title
+							%}
+						</li>
+					{% endfor %}
+					
+				</ul>
+			</div>
+		{% endif %}
+
+	</div>
+</div>
+{% endcapture %}
+
+{%
+	render 'popup'
+	popup_content: mobile_menu
+	popup_id: id
+	popup_width: '100%'
+	popup_direction: popup_direction
+%}

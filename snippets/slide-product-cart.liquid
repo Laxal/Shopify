@@ -1,0 +1,33 @@
+<div class="slide-product-cart swiper-slide">
+	<div class="slide-product-cart__inner">
+		{% liquid 
+			capture image
+				assign image = product.images | last
+				render 'media', image: image
+			endcapture
+
+			render 'link', classes: 'slide-product-cart__image', href: product.url, inner: image
+		%}
+
+		<div class="slide-product-cart__detail">
+
+			<div class="slide-product-cart__title">
+				{{ product.title }}
+			</div>
+
+			{% render 'product-badges' with product as product %}
+
+			<div class="slide-product-cart__price">
+				{% if product.compare_at_price != blank %}
+					<span class="slide-product-cart__price-item slide-product-cart__price-item--old" x-price="{{ product.compare_at_price }}"></span>
+					<span class="slide-product-cart__price-item slide-product-cart__price-item--new" x-price="{{ product.price }}"></span>
+				{% else %}
+					<span class="slide-product-cart__price-item" x-price="{{ product.price }}"></span>
+				{% endif %}
+				
+			</div>
+
+		</div>
+	</div>
+	
+</div>

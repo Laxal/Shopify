@@ -1,0 +1,80 @@
+
+{% assign menu = section.settings.link_list %}
+<div class="institutional_menu {%if shop.locale == 'ar'%}institutional_menu__ar{%endif%}" x-data="institutionalMenu" x-init="currentPage = '{{page.url}}'" id="landing_menu">
+  {% if menu.links != blank %}
+    <ul x-data="{
+    title:'',
+    subtitle:'',
+    opened: true,
+    }">
+    {% for link in menu.links %}
+      <li class="institutional_menu__item"x-data="{
+        linkIsActive: false,
+        toogleStatus(){
+        this.linkIsActive= !this.linkIsActive}
+      }
+      "
+   
+    >
+        <div class="institutional_menu__title " @click="changeIndex({{forloop.index}}), opened=!opened"
+          x-bind:class="{'active': title =='{{link.title}}','opened' : !opened}"
+          >
+          <div class="link_title"
+            x-bind:class="{'active': title =='{{link.title}}'}"
+            >
+          <span x-show="windowWidth > 1024">{{link.title}}</span>
+          <span x-show="windowWidth <= 1024" x-text='subtitle'></span>
+         
+          </div>
+          <div x-show="windowWidth > 1024">
+              <span x-show="currentIndex=={{forloop.index}} || title =='{{link.title}}'">{% render 'icons', icon: "simple-minus" %}</span>
+              <span class="institutional_menu__title__plus" x-show="currentIndex!={{forloop.index}} && title !='{{link.title}}'">{% render 'icons', icon: "simple-plus" %}</span>
+           </div>
+           <div class="institutional_menu__title__arrow {%if shop.locale == 'ar'%}institutional_menu__title__arrow__ar{%endif%}"  x-show="windowWidth <= 1024" style="background: url({{section.settings.arrow_svg}}) right no-repeat">
+            {% comment %} <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+              <path fill="none" fill-rule="nonzero" stroke="#000" d="M7 9.5l5.008 5L17 9.5"/>
+          </svg> {% endcomment %}
+          </div>
+        </div>
+        {% if link.links !=blank %}
+          <ul class="institutional_menu__submenu" x-show="currentIndex=={{forloop.index}} || (title =='{{link.title}}' && windowWidth > 1024)" 
+        x-data="{
+        submenuActive: false
+        }"
+        x-bind:class="{'institutional_menu__submenu__active': submenuActive =='true'}"
+      >
+            {% for  sublink in link.links %}
+               <li class="institutional_menu__subtitle {%if shop.locale == 'ar'%}institutional_menu__subtitle__ar{%endif%}"
+                x-bind:class="{'active': currentPage =='{{sublink.url}}'}"
+                x-init="if(currentPage =='{{sublink.url}}'){title='{{link.title}}', subtitle='{{sublink.title}}',submenuActive='true'}">
+                <a href="{{sublink.url}}">{{sublink.title}}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Landing menu",
+    "settings": [
+     {
+       "type": "link_list",
+       "id": "link_list",
+       "label": "Select menu",
+       "info": "Select the landing page menu. This menu will only be visible on pages that are part of the selected menu"
+     },
+     {
+       "type": "url",
+       "id": "arrow_svg",
+       "label": "Select arrow for mobile list"
+     }
+    ]
+  }
+{% endschema %}
+
+

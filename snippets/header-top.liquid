@@ -1,0 +1,74 @@
+<div class="header-top">
+	<div class="header-top__inner">
+
+		<div class="header-top__list">
+
+			<div class="header-top__burger" @click="showPopup = 'mobile-menu'">
+				{% render 'icons', icon: 'icon-new-menu' %}
+			</div>
+
+			<div class="header-top__icons">
+
+				{% if customer %}
+					<a class="header-top__account" href="{{ routes.account_url }}">
+						{{ my_account }}
+					</a>
+				{% else %}
+					<a class="header-top__icon-login" href="{{ routes.account_login_url }}">
+						<span class="header-top__icon-desktop">
+							{% render 'icons', icon: 'icon-new-login' %}
+						</span>
+						<span class="header-top__icon-mobile">
+							{% render 'icons', icon: 'icon-new-login-white' %}
+						</span>
+					</a>
+				{% endif %}
+
+				<div x-data="headerSearch" @click="toggle" :class="{ active }" class="header-top__icon-search animate-border-bottom">
+					<span class="header-top__icon-desktop">
+						{% render 'icons', icon: 'icon-new-search' %}
+						{% render 'header-search', placeholder: placeholder %}
+					</span>
+					<span class="header-top__icon-mobile">
+						{% render 'icons', icon: 'icon-new-search-white' %}
+					</span>
+				</div>
+
+				{% capture icon_favorite %}
+					<span class="header-top__icon-desktop">
+						{% render 'icons', icon: 'icon-new-favori' %}
+					</span>
+					<span class="header-top__icon-mobile">
+						{% render 'icons', icon: 'icon-new-favori-white' %}
+					</span>
+				{% endcapture %}
+				{% comment %} href to wishlist {% endcomment %}
+				{% assign href = '' %}
+
+				{%
+					render 'link',
+					classes: 'header-top__icon-favorite',
+					href: href,
+					inner: icon_favorite
+				%}
+
+				<button x-data="headerCart" @click="toggle" :class="{ active }" class="header-top__btn-cart animate-border-bottom">
+					<span class="header-top__icon-cart header-top__icon-desktop">
+						{% render 'icons', icon: 'icon-new-cart' %}
+					</span>
+					<span class="header-top__cart-count" x-text="cart.item_count"></span>
+				</button>
+
+				<a href="{{ routes.cart_url }}" class="header-top__link-cart">
+					<span class="header-top__icon-cart header-top__icon-mobile">
+						{% render 'icons', icon: 'icon-new-cart-white' %}
+					</span>
+					<span class="header-top__cart-count" x-text="cart.item_count"></span>
+				</a>
+			
+			</div>
+
+		</div>
+
+	</div>
+</div>

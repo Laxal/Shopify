@@ -1,0 +1,812 @@
+
+<div class="grid-section">
+  <div id="landing_menu_parent" class="grid-section__left">
+  </div>
+  <div class="contact_information grid-section__right" x-data="contactFormValidation">
+    <div class="contact_information__wrapper">
+     
+      {% if section.blocks.size >0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'image'%}
+            <div class="contact_information__wrapper__image">
+              {% render 'media',image:block.settings.image %}
+            </div>
+            {% elsif block.type == 'store_locator' %}
+            <div class="contact_information__locator" id="store_locator">
+              <div id="store_locator__wrapper">
+                 <!-- Start Stockist.co widget -->
+              <div data-stockist-widget-tag="u12806">Loading store locator
+              from <a href="https://stockist.co">Stockist store locator</a>...</div>
+              <script>
+                (function(s,t,o,c,k){c=s.createElement(t);c.src=o;c.async=1;
+                k=s.getElementsByTagName(t)[0];k.parentNode.insertBefore(c,k);
+                })(document,'script','//stockist.co/embed/v1/widget.min.js');
+              </script>
+              <!-- End Stockist.co widget -->
+              </div>
+            </div>
+            {% elsif block.type == 'text' %}
+                  {%liquid
+                    assign section_title = block.settings.section_title
+                    assign text_id = block.settings.text_id
+                  
+                  if shop.locale == 'ar'
+                      if block.settings.section_title_ar != blank
+                      assign section_title = block.settings.section_title_ar
+                    endif
+                      if block.settings.text_id_ar != blank
+                    assign text_id = block.settings.text_id_ar
+                    endif
+                  endif
+                  %}
+                <div class="contact_information__textblock">
+                  {% if section_title != blank %}
+                    <h1 class="contact_information__textblock__title">{{section_title}}</h1>
+                  {% endif %}
+                  <div class="contact_information__textblock__text {% if block.settings.class == true %}contact_information__textblock__class{% endif %}">{{text_id}}</div>
+                </div>
+                
+          {% elsif block.type == 'form' %}
+            {%liquid
+              assign arrow=block.settings.arrow
+              assign select_menu= section.settings.select_menu
+              assign form_title = block.settings.form_title
+              assign form_text = block.settings.form_text
+              assign form_message_select = block.settings.form_message_select
+              assign form_message_type = block.settings.form_message_type
+              assign form_message_type_error = block.settings.form_message_type_error
+              assign form_message_subject = block.settings.form_message_subject
+              assign form_message_subject_error = block.settings.form_message_subject_error
+              assign form_message_subtopic = block.settings.form_message_subtopic
+              assign form_message_order_number = block.settings.form_message_order_number
+              assign form_message_bill_number = block.settings.form_message_bill_number
+              assign form_message_product_code = block.settings.form_message_product_code
+              assign form_message_name = block.settings.form_message_name
+              assign form_message_name_error = block.settings.form_message_name_error
+              assign form_message_surname = block.settings.form_message_surname
+              assign form_message_surname_error = block.settings.form_message_surname_error
+              assign form_message_telephone = block.settings.form_message_telephone
+              assign form_message_telephone_empty = block.settings.form_message_telephone_empty
+              assign form_message_telephone_error = block.settings.form_message_telephone_error
+              assign form_message_email = block.settings.form_message_email
+              assign form_message_email_empty = block.settings.form_message_email_empty
+              assign form_message_email_error = block.settings.form_message_email_error
+              assign form_message_message = block.settings.form_message_message
+              assign form_message_message_empty = block.settings.form_message_message_empty
+              assign form_message_preference = block.settings.form_message_preference
+              assign form_message_btn = block.settings.form_message_btn
+              assign form_message_success = block.settings.form_message_success
+             if shop.locale == 'ar'
+                if block.settings.form_title_ar != blank
+                  assign form_title = block.settings.form_title_ar
+                endif
+                if block.settings.form_text_ar != blank
+                  assign form_text = block.settings.form_text_ar
+                endif
+                if block.settings.form_message_select_ar != blank
+                  assign form_message_select = block.settings.form_message_select_ar
+                endif
+                if block.settings.form_message_type_ar != blank
+                  assign form_message_type = block.settings.form_message_type_ar
+                endif
+                if block.settings.form_message_type_error_ar != blank
+                  assign form_message_type_error = block.settings.form_message_type_error_ar
+                endif
+                if block.settings.form_message_subject_ar != blank
+                  assign form_message_subject = block.settings.form_message_subject_ar
+                endif
+                if block.settings.form_message_subject_error_ar != blank
+                  assign form_message_subject_error = block.settings.form_message_subject_error_ar
+                endif
+                if block.settings.form_message_subtopic_ar != blank
+                  assign form_message_subtopic = block.settings.form_message_subtopic_ar
+                endif
+                if block.settings.form_message_order_number_ar != blank
+                  assign form_message_order_number = block.settings.form_message_order_number_ar
+                endif
+                if block.settings.form_message_bill_number_ar != blank
+                  assign form_message_bill_number = block.settings.form_message_bill_number_ar
+                endif
+                if block.settings.form_message_product_code_ar != blank
+                  assign form_message_product_code = block.settings.form_message_product_code_ar
+                endif
+                if block.settings.form_message_name_ar != blank
+                  assign form_message_name = block.settings.form_message_name_ar
+                endif
+                if block.settings.form_message_name_error_ar != blank
+                  assign form_message_name_error = block.settings.form_message_name_error_ar
+                endif
+                if block.settings.form_message_surname_ar != blank
+                  assign form_message_surname = block.settings.form_message_surname_ar
+                endif
+                if block.settings.form_message_surname_error_ar != blank
+                  assign form_message_surname_error = block.settings.form_message_surname_error_ar
+                endif
+                if block.settings.form_message_telephone_ar != blank
+                  assign form_message_telephone = block.settings.form_message_telephone_ar
+                endif
+                if block.settings.form_message_telephone_empty_ar != blank
+                  assign form_message_telephone_empty = block.settings.form_message_telephone_empty_ar
+                endif
+                if block.settings.form_message_telephone_error_ar != blank
+                  assign form_message_telephone_error = block.settings.form_message_telephone_error_ar
+                endif
+                if block.settings.form_message_email != blank
+                  assign form_message_email = block.settings.form_message_email_ar
+                endif
+                if block.settings.form_message_email_empty_ar != blank
+                  assign form_message_email_empty = block.settings.form_message_email_empty_ar
+                endif
+                if block.settings.form_message_email_error_ar != blank
+                  assign form_message_email_error = block.settings.form_message_email_error_ar
+                endif
+                if block.settings.form_message_message_ar != blank
+                  assign form_message_message = block.settings.form_message_message_ar
+                endif
+                if block.settings.form_message_message_empty_ar != blank
+                  assign form_message_message_empty = block.settings.form_message_message_empty_ar
+                endif
+                if block.settings.form_message_preference_ar != blank
+                  assign form_message_preference = block.settings.form_message_preference_ar
+                endif
+                if block.settings.form_message_btn_ar != blank
+                assign form_message_btn = block.settings.form_message_btn_ar
+                endif
+                  if block.settings.form_message_success_ar != blank
+                  assign form_message_success = block.settings.form_message_success_ar
+                endif
+              endif
+            %}
+          <div class="contact_information__container">
+          {% comment %} form title {% endcomment %}
+          {% if form_title != blank %}
+            <h2 class="contact_information__title">{{form_title}}</h2>
+          {% endif %}
+          {% if form_text != blank%}
+            <div class="contact_information__text">{{form_text}}</div>
+          {% endif %}
+          {% comment %} form title end {% endcomment %}
+          {% comment %} form {% endcomment %}
+            {%form 'contact'%}
+
+            {% style %}.form-loader { background: url("{{ 'loader.gif' | asset_url }}") center center no-repeat rgb(255 255 255 / 50%); }{% endstyle %}
+            <div
+              class="form-loader"
+              x-show="form_loader"
+              @loader-toogle.window="form_loader = !form_loader"
+            ></div>
+
+            <div @keydown.enter.prevent="submit">
+              <div class="contact_information__select"
+                :class="{'contact_information__wrongfield' :  formSended==true && type=='{{form_message_select}}'}"
+                x-init="$watch('type', (s)=>reset('{{form_message_select}}'))">
+                {% if select_menu.links != blank  %}
+                  <div class="contact_information__select__block">
+                    <label class="req" for="{{form_message_type}}">{{form_message_type}}</label>
+                    <select x-model="type" 
+                            name="contact[{{form_message_type}}]" 
+                            id="{{form_message_type}}"
+                            style="background:url({{arrow}}) {%if shop.locale == 'ar'%}left{%else%}right{%endif%} no-repeat">
+                      <option x-init="changeType('{{form_message_select}}'),
+                                      changeSubject('{{form_message_select}}'),
+                                      changeSubTopic('{{form_message_select}}'),
+                                      defaultOption='{{form_message_select}}'" 
+                      value="{{form_message_select}}"
+                      >
+                        {{form_message_select}}</option>
+                      {% for link in select_menu.links %}
+                        <option value="{{link.title}}">{{link.title}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                 
+                
+                  <div x-show="formSended==true && type=='{{form_message_select}}'" 
+                       class="contact_information__field__error">
+                    <p>{{form_message_type_error}}</p>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="contact_information__select"
+              x-init="$watch('type', (s)=>changesubjectChildrens('{{form_message_subject}}'))"
+              >
+                <label class="req" for="{{form_message_subject}}">{{form_message_subject}}</label>
+                <select
+                  x-model="subject" 
+                  x-init="$watch('type', (s)=>changeSubTopic('{{form_message_select}}'),changesubjectChildrens('{{form_message_subject}}'))" 
+                  name="contact[{{form_message_subject}}]" 
+                  id="{{form_message_subject}}"
+                  style="background:url({{arrow}}) {%if shop.locale == 'ar'%}left{%else%}right{%endif%} no-repeat"
+                  :disabled="subjectChildrens<=1"
+                >
+                  <option 
+                    x-init="changeSubject('{{form_message_select}}')" 
+                    value="{{form_message_select}}"
+                  >
+                    {{form_message_select}}</option>
+                    {% for link in select_menu.links %}
+                      {% for sublink in link.links %}
+                        <template x-if="'{{link.title}}'==type">
+                          <option value="{{sublink.title}}">{{sublink.title}}</option>
+                        </template>
+                      {% endfor %}
+                    {% endfor %}
+                </select>
+                <div x-show="formSended==true && subject=='{{form_message_select}}'" class="contact_information__field__error">
+                  <p>{{form_message_subject_error}}</p>
+                </div>
+              </div>
+              <div class="contact_information__select" 
+                x-init="$watch('subject', (s)=>changeSubtopicChildrens('{{form_message_subtopic}}'))"
+              >
+                <label for="{{form_message_subtopic}}">{{form_message_subtopic}}</label>
+                <select 
+                  x-model="subTopic"  
+                  name="contact[{{form_message_subtopic}}]" 
+                  id="{{form_message_subtopic}}"
+                  style="background:url({{arrow}}) {%if shop.locale == 'ar'%}left{%else%}right{%endif%} no-repeat"
+                  :disabled="subTopicChildrens<=1"
+                    x-init="$watch('subject', (s)=>changeSubTopic('{{form_message_select}}'))"
+                >
+                  <option x-init="changeSubTopic('{{form_message_select}}'),
+                    changeSubtopicChildrens('{{form_message_subtopic}}')" 
+                    value="{{form_message_select}}"
+                  >
+                    {{form_message_select}}
+                </option>
+                  {% for link in select_menu.links %}
+                    {% for sublink in link.links %}
+                      {% for subsublink in sublink.links %}
+                          <template x-if="'{{link.title}}'==type && '{{sublink.title}}'==subject">
+                            <option value="{{subsublink.title}}">{{subsublink.title}}</option>
+                          </template>
+                      {% endfor %}
+                    {% endfor %}
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="contact_information__field contact_information__field__single">
+                <label for="order-number">{{form_message_order_number}}</label>
+                <input type="text" name="contact[order_number]" id="order-number" />
+              </div>
+              <div class="contact_information__field">
+                <div class="contact_information__field__half">
+                  <label for="bill-number">{{form_message_bill_number}}</label>
+                  <input type="text" name="contact[bill_number]" id="bill-number" />
+                </div>
+                <div class="contact_information__field__half">
+                  <label for="product-code">{{form_message_product_code}}</label>
+                  <input type="text" name="contact[product_code]" id="product-code" />
+                </div>
+              </div>
+              <div class="contact_information__field">
+                <div class="contact_information__field__half"
+                  :class="{'contact_information__wrongfield' :  nameField==''&& (formSended==true || checked == true)}"
+                  x-data="{
+                    checked:false,
+                  }"
+                >
+                  <label class="req" for="form-name">{{form_message_name}}</label>
+                  <input type="text" name="contact[name]" id="form-name" 
+                  x-model="nameField"
+                  @blur="checked = true" 
+                  />
+                  <div x-show="nameField==''&& (formSended==true || checked == true)" class="contact_information__field__error">
+                    <p>{{form_message_name_error}}</p>
+                  </div>
+                </div>
+                <div class="contact_information__field__half"
+                  :class="{'contact_information__wrongfield' :  surNameField==''&& (formSended==true || checked == true)}"
+                  x-data="{
+                    checked:false,
+                  }"
+                >
+                  <label class="req" for="form-surname">{{form_message_surname}}</label>
+                  <input type="text" name="contact[surname]" id="form-surname" 
+                   x-model="surNameField"
+                   @blur="checked = true" 
+                  />
+                  <div x-show="surNameField=='' && (formSended==true || checked == true)" class="contact_information__field__error">
+                    <p>{{form_message_surname_error}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="contact_information__field">
+                <div class="contact_information__field__half"x-data="{
+                  empty:'',
+                  field:'',
+                  checked:false,
+                  length:'',
+                }"
+                :class="{'contact_information__wrongfield' : ((formCheck=='phone' && phoneValue.length < '10') ||
+                  (formCheck=='email' && phoneValue.length < '10' && phoneValue!= ''))
+                  && (checked==true || formSended==true)}">
+                  <label 
+                    
+                    for="form-phone">{{form_message_telephone}}</label>
+                  <input type="text" name="contact[phone]" id="form-phone" 
+                    min="0"
+                    maxlength="10"
+                    pattern="[0-9]{10}"
+                    :required="formCheck=='phone'"     
+                    x-model="phoneValue"
+                    @input="isInvalidPhone"
+                    @blur="checked = true" 
+                  />
+                  <div x-show="phoneValue==empty && formCheck=='phone' && (checked==true || formSended==true)" class="contact_information__field__error">
+                    <p>{{form_message_telephone_empty}}</p>
+                  </div>
+              <div  x-show="phoneValue!=empty && phoneValue.length < '10' && (checked==true || formSended==true)" class="contact_information__field__error">
+                <p>{{form_message_telephone_error}}</p>
+              </div>
+                </div>
+                <div class="contact_information__field__half" x-data="{
+                  empty:'',
+                  checked:false,
+                  
+                }"
+                :class="{'contact_information__wrongfield' :  (checked==true || formSended==true) && ((isInvalidEmail &&formCheck=='email')||(formCheck=='phone' && isInvalidEmail && inputValue !=''))}">
+                  <label 
+                    :class="{'req':formCheck=='email'}"
+                    for="form-email">{{form_message_email}}</label>
+                  <input type="email" name="contact[email]" id="form-email" 
+                  :required="formCheck=='email'"
+                  x-model="inputValue"
+                  @blur="checked = true"
+                  
+                  />
+                  <div x-show="inputValue==empty && formCheck=='email' && (checked==true || formSended==true)" class="contact_information__field__error">
+                    <p>{{form_message_email_empty}}</p>
+                  </div>
+                  <div x-show="(checked==true || formSended==true) && (inputValue!=empty && formCheck=='email' &&  isInvalidEmail ||(formCheck=='phone' && isInvalidEmail && inputValue !='')) " class="contact_information__field__error">
+                    <p>{{form_message_email_error}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="contact_information__field contact_information__textarea contact_information__field__single" x-data="{
+              empty:'',
+              checked:false,
+              }"
+            :class="{'contact_information__wrongfield' : messageField==empty && (checked==true || formSended==true)}"
+          >
+                <label class="req" for="message">{{form_message_message}}</label>
+                <textarea x-model="messageField" name="contact[message]" id="message" cols="30" rows="10"
+                  @blur="checked = true"
+                  required></textarea>
+                <div x-show="messageField==empty && (checked==true || formSended==true)" class="contact_information__field__error">
+                  <p>{{form_message_message_empty}}</p>
+                </div>
+              </div>
+              <div class="contact_information__field contact_information__switcher contact_information__field__single"
+              x-init="formCheck='email'"
+              >
+                <p>{{form_message_preference}}</p>
+                <div>
+                  <div class="contact_information__check"
+                  @click="formCheck='email'"
+                  >
+                    <span class="contact_information__icon"
+                      x-show="formCheck=='phone'">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="icon-radio-btn">
+                        <path fill="#000000" style="fill: var(--color1, #000000);" d="M12.5,22.5c-5.514,0-10-4.486-10-10c0-5.514,4.486-10,10-10c5.514,0,10,4.486,10,10C22.5,18.014,18.014,22.5,12.5,22.5z   M12.5,3.5c-4.962,0-9,4.038-9,9c0,4.963,4.038,9,9,9c4.963,0,9-4.037,9-9C21.5,7.538,17.463,3.5,12.5,3.5z">
+                        </path>
+                      </svg>
+                    </span>
+                    <span class="contact_information__icon"
+                      x-show="formCheck=='email'">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="icon-radio-btn-active">
+                        <path d="M12.5,22.5c-5.514,0-10-4.486-10-10c0-5.514,4.486-10,10-10c5.514,0,10,4.486,10,10C22.5,18.014,18.014,22.5,12.5,22.5z   M12.5,3.5c-4.962,0-9,4.038-9,9c0,4.963,4.038,9,9,9c4.963,0,9-4.037,9-9C21.5,7.538,17.463,3.5,12.5,3.5z M16.377,9.005  c-0.127,0.019-0.244,0.083-0.329,0.18l-5.885,6.37l-2.192-2.371c-0.129-0.166-0.343-0.241-0.547-0.189  c-0.207,0.059-0.364,0.228-0.408,0.438c-0.051,0.215,0.013,0.439,0.17,0.594l2.585,2.799c0.1,0.111,0.243,0.175,0.392,0.176  c0.15-0.001,0.292-0.064,0.393-0.176l6.277-6.795c0.172-0.187,0.216-0.458,0.112-0.69C16.852,9.113,16.619,8.977,16.377,9.005z" style="fill: var(--color1, #000000);" fill="#000000"/>
+                      </svg>
+                    </span>
+                    <span>{{form_message_email}}</span>
+                    
+                  </div>
+                  <div class="contact_information__check"
+                    @click="formCheck='phone'"
+                  >
+                    <span class="contact_information__icon"
+                      x-show="formCheck=='email'">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="icon-radio-btn">
+                        <path fill="#000000" style="fill: var(--color1, #000000);" d="M12.5,22.5c-5.514,0-10-4.486-10-10c0-5.514,4.486-10,10-10c5.514,0,10,4.486,10,10C22.5,18.014,18.014,22.5,12.5,22.5z   M12.5,3.5c-4.962,0-9,4.038-9,9c0,4.963,4.038,9,9,9c4.963,0,9-4.037,9-9C21.5,7.538,17.463,3.5,12.5,3.5z">
+                        </path>
+                      </svg>
+                    </span>
+                    <span class="contact_information__icon"
+                    x-show="formCheck=='phone'"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="icon-radio-btn-active">
+                        <path d="M12.5,22.5c-5.514,0-10-4.486-10-10c0-5.514,4.486-10,10-10c5.514,0,10,4.486,10,10C22.5,18.014,18.014,22.5,12.5,22.5z   M12.5,3.5c-4.962,0-9,4.038-9,9c0,4.963,4.038,9,9,9c4.963,0,9-4.037,9-9C21.5,7.538,17.463,3.5,12.5,3.5z M16.377,9.005  c-0.127,0.019-0.244,0.083-0.329,0.18l-5.885,6.37l-2.192-2.371c-0.129-0.166-0.343-0.241-0.547-0.189  c-0.207,0.059-0.364,0.228-0.408,0.438c-0.051,0.215,0.013,0.439,0.17,0.594l2.585,2.799c0.1,0.111,0.243,0.175,0.392,0.176  c0.15-0.001,0.292-0.064,0.393-0.176l6.277-6.795c0.172-0.187,0.216-0.458,0.112-0.69C16.852,9.113,16.619,8.977,16.377,9.005z" style="fill: var(--color1, #000000);" fill="#000000"/>
+                      </svg>
+                    </span>
+                    <span>{{form_message_telephone}}</span>
+                   
+                  </div>
+                </div>
+              </div>
+              {% if form.posted_successfully? %}
+                <div class="contact_information__success">
+                  <p>{{form_message_success}}</p>
+                </div>
+              {% else %}
+              {% endif %}
+              <div class="contact_information__submit ">
+                <button class="btn btn__primary contact_information__button" type="submit" id="contact_information__button"
+                @click.prevent="submit"
+                >{{form_message_btn}}</button>
+              </div>
+            </div>
+            {%endform%}
+          {% comment %} end form {% endcomment %}
+          {%endif%} 
+        {%endfor%}
+      </div>   
+      {%endif%}  
+     
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "contact information",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "select_menu",
+        "label": "Choose a menu for contact form",
+        "info": "The selected menu items will be integrated into each selection."
+      }
+    ],
+    "blocks":[
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Section image"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings":[
+          {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section title",
+            "default" :"Contact information"
+          },
+          {
+            "type": "text",
+            "id": "section_title_ar",
+            "label": "Section title (AR)"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id",
+            "label": "Section text",
+            "default": "<p>Ayaydın-Miroglio Headquarters<br>Bomonti Kazım Orbay Cad. No.35 34381 Şişli/ İstanbul<br><br>Customer Service<br>Working Hours:<br><br>Weekdays 09:00-20:00, Saturday 09:00-20:00<br>0 (850) 399 47 35<br><br>Human Resources<br>Click here for your applications.<br><br>Click for Franchising<br>Contact.<br>0 (212) 296 24 25</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_ar",
+            "label": "Section text (AR)"
+          },
+          {
+            "type": "checkbox",
+            "id": "class",
+            "label": "Additional class for text",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "store_locator",
+        "name": "Store locator",
+        "settings": []
+      },
+      {
+        "type": "form",
+        "name": "Form",
+        "settings":[
+          {
+            "type": "url",
+            "id": "arrow",
+            "label": "Arrow for select"
+          },
+          {
+            "type": "text",
+            "id": "form_title",
+            "label": "Form title",
+            "default": "Contact Form"
+          },
+          {
+            "type": "text",
+            "id": "form_title_ar",
+            "label": "Form title (AR)"
+          },
+          {
+            "type": "richtext",
+            "id": "form_text",
+            "label": "Text above form",
+            "default": "<p>Your personal data obtained with this form are collected in order to contact you. You can find detailed information about the processing of personal data here .</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "form_text_ar",
+            "label": "Text above form (AR)"
+          }
+          ,
+          {
+            "type": "text",
+            "id": "form_message_select",
+            "label": "First option for each select",
+            "default": "Choose"
+          },
+          {
+            "type": "text",
+            "id": "form_message_select_ar",
+            "label": "First option for each select (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_type",
+            "label": "Message Type text",
+            "default": "Message Type"
+          },
+          {
+            "type": "text",
+            "id": "form_message_type_ar",
+            "label": "Message Type text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_type_error",
+            "label": "Message Type Error text",
+            "default": "Request Type field cannot be left blank"
+          },
+          {
+            "type": "text",
+            "id": "form_message_type_error_ar",
+            "label": "Message Type Error text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_subject",
+            "label": "Message Subject text",
+            "default": "Message Subject"
+          },
+          {
+            "type": "text",
+            "id": "form_message_subject_ar",
+            "label": "Message Subject text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_subject_error",
+            "label": "Message Subject Error text",
+            "default": "Call Type field cannot be left blank"
+          },
+          {
+            "type": "text",
+            "id": "form_message_subject_error_ar",
+            "label": "Message Subject Error text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_subtopic",
+            "label": "Message Subtopic text",
+            "default": "Message Subtopic"
+          },
+          {
+            "type": "text",
+            "id": "form_message_subtopic_ar",
+            "label": "Message Subtopic text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_order_number",
+            "label": "Order number text",
+            "default": "Order number"
+          },
+          {
+            "type": "text",
+            "id": "form_message_order_number_ar",
+            "label": "Order number text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_bill_number",
+            "label": "Bill number text",
+            "default": "Bill number"
+          },
+          {
+            "type": "text",
+            "id": "form_message_bill_number_ar",
+            "label": "Bill number text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_product_code",
+            "label": "Product code text",
+            "default": "Product code"
+          },
+          {
+            "type": "text",
+            "id": "form_message_product_code_ar",
+            "label": "Product code text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_name",
+            "label": "Name text",
+            "default": "Name"
+          },
+          {
+            "type": "text",
+            "id": "form_message_name_ar",
+            "label": "Name text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_name_error",
+            "label": "Name error text",
+            "default": "Name field cannot be left blank"
+          },
+          {
+            "type": "text",
+            "id": "form_message_name_error_ar",
+            "label": "Name error text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_surname",
+            "label": "Surname text",
+            "default": "Surname"
+          },
+          {
+            "type": "text",
+            "id": "form_message_surname_ar",
+            "label": "Surname text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_surname_error",
+            "label": "Surname error text",
+            "default": "Surname field cannot be left blank"
+          },
+          {
+            "type": "text",
+            "id": "form_message_surname_error_ar",
+            "label": "Surname error text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_telephone",
+            "label": "Telephone text",
+            "default": "Telephone"
+          },
+          {
+            "type": "text",
+            "id": "form_message_telephone_ar",
+            "label": "Telephone text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_telephone_empty",
+            "label": "Telephone empty error text",
+            "default": "Mobile phone field cannot be left blank"
+          },
+          {
+            "type": "text",
+            "id": "form_message_telephone_empty_ar",
+            "label": "Telephone empty error text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_telephone_error",
+            "label": "Telephone wrong error text",
+            "default": "Mobile phone must be 10 digits"
+          },
+          {
+            "type": "text",
+            "id": "form_message_telephone_error_ar",
+            "label": "Telephone wrong error text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_email",
+            "label": "E-mail text",
+            "default": "E-mail"
+          },
+          {
+            "type": "text",
+            "id": "form_message_email_ar",
+            "label": "E-mail text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_email_empty",
+            "label": "E-mail empty error text",
+            "default": "Email field cannot be left blank"
+          },
+          {
+            "type": "text",
+            "id": "form_message_email_empty_ar",
+            "label": "E-mail empty error text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_email_error",
+            "label": "E-mail wrong error text",
+            "default": "Please enter a valid e-mail address"
+          },
+          {
+            "type": "text",
+            "id": "form_message_email_error_ar",
+            "label": "E-mail wrong error text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_message",
+            "label": "Message text",
+            "default": "Message"
+          },
+          {
+            "type": "text",
+            "id": "form_message_message_ar",
+            "label": "Message text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_message_empty",
+            "label": "Message empty text",
+            "default": "Your message field cannot be left blank."
+          },
+          {
+            "type": "text",
+            "id": "form_message_message_empty_ar",
+            "label": "Message empty text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_preference",
+            "label": "Form preference message",
+            "default": "Your Contact Preference"
+          },
+          {
+            "type": "text",
+            "id": "form_message_preference_ar",
+            "label": "Form preference message (AR)"
+          },
+          {
+            "type": "text",
+            "id": "form_message_btn",
+            "label": "Form button label",
+            "default": "Send"
+          },
+          {
+            "type": "text",
+            "id": "form_message_btn_ar",
+            "label": "Form button label (AR)"
+          }, {
+            "type": "text",
+            "id": "form_message_success",
+            "label": "Form sent successfuly message",
+            "default": "Your message has been received, we will get back to you as soon as possible."
+          },
+          {
+            "type": "text",
+            "id": "form_message_success_ar",
+            "label": "Form sent successfuly message (AR)"
+          }
+
+        ]
+      }
+    ]
+  }
+{% endschema %}

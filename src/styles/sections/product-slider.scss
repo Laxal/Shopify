@@ -1,0 +1,175 @@
+.product-slider {
+	width: calc(100% - 388px);
+	margin: 140px auto 0;
+
+	&__title {
+		padding-bottom: 35px;
+		margin-top: 0;
+		margin-bottom: 80px;
+		font-family: $font-medium;
+		font-size: 45px;
+		font-weight: 600;
+		line-height: 1.15;
+		color: $color-dark;
+		text-align: center;
+		border-bottom: 1px solid $color-black;
+	}
+
+	&__slider-container {
+		position: relative;
+		width: 1167px;
+		margin: auto;
+	}
+
+	&__slider {
+		width: 100%;
+	}
+
+	&__slider-wrapper {
+		padding-bottom: 30px;
+	}
+
+	&__btn:empty {
+		position: absolute;
+		top: 50%;
+		z-index: 10;
+		display: block;
+		width: 36px;
+		height: 50px;
+		margin-top: -16px;
+		overflow: hidden;
+		cursor: pointer;
+		background-size: 175px 91px;
+		transform: translateY(-50%);
+
+		&.swiper-button-disabled {
+			display: none;
+		}
+	}
+
+	&__btn-next {
+		right: -170px;
+	}
+
+	&__btn-prev {
+		left: -170px;
+	}
+
+	@include media-max(1570px) {
+		&__btn-next {
+			right: -35px;
+		}
+
+		&__btn-prev {
+			left: -35px;
+		}
+	}
+
+	@include media-max(1450px) {
+		width: calc(100% - 144px);
+
+		&__slider-container {
+			width: 100%;
+		}
+
+		&__slider {
+			width: 100%;
+		}
+	}
+
+	@include media-max(992px) {
+		width: 90%;
+		margin: 114px auto 0;
+
+		&__title {
+			padding-bottom: 14px;
+			margin-bottom: 40px;
+			font-size: 25px;
+		}
+	}
+
+	@include media-max(568px) {
+		width: 70%;
+		margin: 114px auto 0;
+	}
+}
+
+.slide-product-cart {
+	width: 100%;
+	height: 100%;
+
+	&__inner {
+		width: 100%;
+		height: 100%;
+		padding-right: 6px;
+		padding-left: 6px;
+	}
+
+	&__image {
+		position: relative;
+		display: block;
+		width: 100%;
+		height: 100%;
+
+		&::before {
+			display: block;
+			width: 100%;
+			padding-top: 119.9275%;
+			content: "";
+			background: #f7f7f7;
+		}
+
+		svg,
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+
+	&__detail {
+		min-height: 110px;
+		padding-top: 10px;
+	}
+
+	&__title {
+		font-size: calc($font-size - 1px);
+		line-height: 1.4;
+		color: $color-dark-grey-2;
+	}
+
+	&__price {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	&__price-item {
+		min-height: 40px;
+		margin-top: 5px;
+		font-size: calc($font-size - 1px);
+		font-weight: 400;
+		line-height: 1.15;
+		color: $color-dark;
+
+		&--old {
+			text-decoration: line-through;
+		}
+
+		&--new {
+			color: $color-red;
+		}
+	}
+
+	@include media-max($desktop) {
+		&__detail {
+			min-height: auto;
+			padding-top: 10px;
+		}
+	}
+}

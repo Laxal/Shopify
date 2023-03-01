@@ -1,0 +1,158 @@
+<div class="grid-section">
+  <div class="grid-section__left" id="landing_menu_parent">
+  </div>
+  <div class="grid-section__right">
+    <div class="ayaydin_miroglio">
+      {% for block in section.blocks %}
+        {% if section.blocks.size >0 %}
+          <div class="ayaydin_miroglio__item">
+            {% if block.type == 'image'%}
+                <div class="ayaydin_miroglio__item__image" style="margin-top:{{block.settings.margin}}px">
+                  {% render 'media',image:block.settings.image %}
+                </div>
+              {% elsif block.type == 'text' %}
+                  {%liquid
+                    assign section_title = block.settings.section_title
+                    assign text_id = block.settings.text_id
+                  
+                  if shop.locale == 'ar'
+                      if block.settings.section_title_ar != blank
+                      assign section_title = block.settings.section_title_ar
+                    endif
+                      if block.settings.text_id_ar != blank
+                    assign text_id = block.settings.text_id_ar
+                    endif
+                  endif
+                  %}
+                <div class="ayaydin_miroglio__item__text">
+                  {% if section_title != blank %}
+                    <h2 class="ayaydin_miroglio__item__text__title">{{section_title}}</h2>
+                  {% endif %}
+                  <div class="ayaydin_miroglio__item__text__rich">{{text_id}}</div>
+                </div>
+                {% elsif block.type == 'list' %}
+                  {%liquid
+                  assign list_area = block.settings.list_area
+                  assign title = block.settings.title
+                  
+                  
+                  if shop.locale == 'ar' 
+                      if block.settings.title_ar != blank
+                        assign title = block.settings.title_ar
+                      endif
+                      if block.settings.list_area_ar != blank
+                      assign list_area = block.settings.list_area_ar
+                      endif
+                  endif 
+                  assign list =list_area | split: '/' 
+                  %}
+                  <div class="ayaydin_miroglio__item__area" >
+                    {% if title!= blank %}
+                      <h2 class="ayaydin_miroglio__item__area__title">{{title}}</h2>
+                    {% endif %}
+                    <ul class="ayaydin_miroglio__item__list">
+                      {% for item in list %}
+                        <li>{{item | strip}}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "ayaydin-miroglio",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Section image"
+          },
+          {
+            "type": "range",
+            "id": "margin",
+            "min": -50,
+            "max": 50,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top",
+            "default": 0
+          }
+        ]
+      },{
+        "type": "text",
+        "name": "Text",
+        "settings":[
+          {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section title"
+          },
+          {
+            "type": "text",
+            "id": "section_title_ar",
+            "label": "Section title (AR)"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id",
+            "label": "Section text",
+            "default": "<p>Appealing to the different tastes of hundreds of thousands of women in its more than 200 stores with Ipekyol, Twist and Machka brands, Ayaydın-Miroglio Group is one of the respected and well-established institutions of the Turkish ready-made clothing industry.Stepping into the retail ready-to-wear industry in 1986, Ipekyol was founded by Yalçın Ayaydın with the aim of becoming a brand that inspires the lifestyle of modern women. Ipekyol, which designs the most desired women's clothing and accessories, and offers different shopping experiences in its stores in Turkey and abroad, ranks among the top brands that are accepted the fastest in Turkey and consolidate their position in the shortest time, with the effect of chain stores as well as high product quality. has taken place.</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "text_id_ar",
+            "label": "Section text (AR)"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "name": "List",
+        "settings":[
+          {
+            "type": "text",
+            "id": "title",
+            "label": "List title",
+            "default": "Title"
+          },
+          {
+            "type": "text",
+            "id": "title_ar",
+            "label": "List title (AR)"
+          },
+          {
+            "type": "textarea",
+            "id": "list_area",
+            "label": "List text",
+            "info" : "To make a new item in the list - paste symbol \"/\" .Example: \"first row / second row / third row\"",
+            "default": "first row / second row / third row"
+          },
+          {
+            "type": "textarea",
+            "id": "list_area_ar",
+            "label": "List text (AR)",
+            "info" : "To make a new item in the list - paste symbol \"/\" .Example: first row / second row / third row"
+          }
+        ]
+      }
+    ]
+    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

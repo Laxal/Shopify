@@ -1,0 +1,18 @@
+.animate-border-bottom {
+	position: relative;
+
+	&::after {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 0;
+		height: 2px;
+		content: "";
+		background: $color-black;
+		transition: all 0.2s ease;
+	}
+
+	&.active::after {
+		width: 100%;
+	}
+}

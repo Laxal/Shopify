@@ -1,0 +1,52 @@
+{% assign image = product.featured_image %}
+
+{%- if index > 12 and attributes == '' -%}
+	<template x-if="visibleProductCount >= {{ chunk_count }}">
+{%- endif -%}
+<div {{ attributes }} class="collection-product-card {{ index }} {% if image.aspect_ratio > 1 %} double{% endif %}" {% if index >= chunk_count %}x-intersect:enter.once="visibleProductCount += 12"{% endif %}>
+	<div class="collection-product-card__inner">
+
+		<div class="collection-product-card__favorite-btn">
+			{% render 'icons', icon: 'icon-favori' %}
+		</div>
+
+		<a href="{{ product.url }}" class="collection-product-card__image">
+			{% if image != blank %}
+				<img x-data="collectionLazyImage" src="{{ image | image_url: width: 10 }}" alt="{{ image.alt }}" x-intersect:enter.once.margin.300px="loadImage()" x-init="src = {{ image | json | escape }}">
+			{% else %}
+				{{ 'image' | placeholder_svg_tag }}
+			{% endif %}
+		</a>
+
+		<div class="collection-product-card__detail">
+
+			<div class="collection-product-card__detail-header">
+				<div class="collection-product-card__title">
+					{{ product.title }}
+				</div>
+
+				{% render 'product-badges' with product as product %}
+			</div>
+
+			<div class="collection-product-card__footer">
+				{% if product.compare_at_price != blank %}
+					<div class="collection-product-card__price">
+						<span class="collection-product-card__price-item collection-product-card__price-item--old" x-price="{{ product.compare_at_price }}"></span>
+						<span class="collection-product-card__price-item collection-product-card__price-item--new" x-price="{{ product.price }}"></span>
+					</div>
+					<div class="collection-product-card__discount-label">
+						{{ discount_label }}
+					</div>
+				{% else %}
+					<div class="collection-product-card__price">
+						<span class="collection-product-card__price-item" x-price="{{ product.price }}"></span>
+					</div>
+				{% endif %}
+			</div>
+
+		</div>
+	</div>
+</div>
+{%- if index > 12 and attributes == '' -%}
+	</template>
+{%- endif -%}

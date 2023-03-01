@@ -1,0 +1,90 @@
+<div class="footer-social">
+	{% if section.settings.title !=blank %}
+	{% assign title = section.settings.title %}
+	{% if section.settings.title_ar != blank %}
+	{% assign title = section.settings.title_ar %}
+	{% endif %}
+	{% if title != blank %}
+	<div class="footer-social__title container">
+		<div class="footer-social__title__item">
+			<img src="{{ section.settings.icon }}" style="width:{{section.settings.icon_size}}" alt="" class="lazyload">
+		</div>
+		<div class="footer-social__title__item">
+			{{title}}
+		</div>
+		{% endif %}
+	</div>
+	{% endif %}
+	{% if section.blocks.size > 0 %}
+	<div class="footer-social__icons">
+		<div class="footer-social__icons__inner container">
+			{% for block in section.blocks %}
+			<a href="{{ block.settings.link_url }}" class="footer-social__icons__item">
+				<img src="{{ block.settings.icon }}"
+					style="width:{{section.settings.icon_height}};height:{{section.settings.icon_height}}" alt=""
+					class="lazyload">
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+	{%endif%}
+</div>
+{% schema %}
+{
+"name": "Footer social",
+"settings": [
+{
+"type": "text",
+"id": "icon",
+"label": "Link to icon from files"
+},
+{
+"type": "text",
+"id": "icon_size",
+"label": "Main icon width",
+"default": "25px"
+},
+{
+"type": "url",
+"id": "link_url",
+"label": "Link"
+},
+{
+"type": "richtext",
+"id": "title",
+"label": "Title",
+"default": "<p>Your text</p>"
+},
+{
+"type": "richtext",
+"id": "title_ar",
+"label": "label"
+},
+{
+"type": "text",
+"id": "icon_height",
+"label": "Icons size",
+"default": "25px"
+}
+],
+"blocks": [
+{
+"name": "Social_icon",
+"type": "Social_icon",
+
+"settings": [
+{
+"type": "text",
+"id": "icon",
+"label": "Link to icon from files"
+},
+{
+"type": "url",
+"id": "link_url",
+"label": "Link"
+}
+]
+}
+]
+}
+{% endschema %}

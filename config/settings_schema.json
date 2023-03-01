@@ -1,0 +1,149 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Dawn",
+    "theme_version": "5.0.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/online-store\/themes",
+    "theme_support_url": "https:\/\/support.shopify.com\/"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.settings.header__1.content"
+      },
+      {
+        "type": "color",
+        "id": "color_white",
+        "default": "#FFFFFF",
+        "label": "Color white"
+      },
+      {
+        "type": "color",
+        "id": "color_red",
+        "default": "#A40000",
+        "label": "Color red"
+      },
+      {
+        "type": "color",
+        "id": "light_grey",
+        "default": "#EEEEEE",
+        "label": "Color light grey"
+      },
+      {
+        "type": "color",
+        "id": "color_grey",
+        "default": "#CCCCCC",
+        "label": "Color grey"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_grey_1",
+        "default": "#696b71",
+        "label": "Color dark grey 1"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_grey_2",
+        "default": "#666666",
+        "label": "Color dark grey 2"
+      },
+      {
+        "type": "color",
+        "id": "color_dark",
+        "default": "#202020",
+        "label": "Color dark"
+      },
+      {
+        "type": "color",
+        "id": "color_black",
+        "default": "#000000",
+        "label": "Color black"
+      },
+      {
+        "type": "color",
+        "id": "color_breadcrumb",
+        "default": "#9b9b9b",
+        "label": "Color breadcrumb"
+      },
+      {
+        "type": "color",
+        "id": "color_breadcrumb_active",
+        "default": "#cecfd4",
+        "label": "Color breadcrumb active"
+      },
+      {
+        "type": "color",
+        "id": "color_errors",
+        "default": "#e72f2f",
+        "label": "Color errors"
+      },
+      {
+        "type": "color",
+        "id": "color_green",
+        "default": "#18C641",
+        "label": "Color errors"
+      },
+      {
+        "type": "color",
+        "id": "color_light_grey_2",
+        "default": "#f8f8f8",
+        "label": "Light grey 2"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "range",
+        "id": "font_size",
+        "min": 10,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Base font size",
+        "default": 14
+      }
+    ]
+  },
+  {
+    "name": "Currency",
+    "settings": [
+      {
+        "type": "select",
+        "id": "currency_position",
+        "label": "Currency position",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "currency_type",
+        "label": "Currency type",
+        "options": [
+          {
+            "value": "iso_code",
+            "label": "ISO code"
+          },
+          {
+            "value": "symbol",
+            "label": "Symbol"
+          }
+        ],
+        "default": "symbol"
+      }
+    ]
+  }
+]

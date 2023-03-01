@@ -1,0 +1,59 @@
+/* stylelint-disable selector-class-pattern */
+.footer-icons {
+	display: flex;
+	justify-content: center;
+	padding-top: 70px;
+	padding-bottom: 90px;
+
+	@include media-max($desktop) {
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+
+	&__inner {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 30px;
+		align-items: center;
+		justify-content: space-around;
+		width: 100%;
+
+		@include media-max($desktop) {
+			flex-direction: column;
+		}
+	}
+
+	&__item {
+		position: relative;
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		justify-content: space-between;
+		padding-right: 5px;
+		padding-left: 5px;
+		text-decoration: none;
+
+		svg {
+			transform: scale(4);
+		}
+
+		// img {
+		// 	display: block;
+		// 	width: 32px;
+		// 	height: 32px;
+		// }
+	}
+
+	&__item-text {
+		font-family: $font-medium;
+		font-size: calc($font-size + 3px);
+		line-height: 1.15;
+		color: $color-dark;
+		text-align: center;
+		letter-spacing: 0;
+
+		@include media-max($desktop) {
+			font-size: $font-size;
+		}
+	}
+}

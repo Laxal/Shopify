@@ -1,0 +1,105 @@
+<div class="collection-menu">
+	<div class="collection-menu__inner">
+		<ul class="collection-menu__main-list">
+
+			{% liquid 
+				assign active_item = ''
+				assign active_link = ''
+				assign current_url = request.path
+
+				for link in menu.links
+					if link.url == current_url
+						assign active_item = link.title
+						assign active_link = link.title
+						break
+					endif
+
+					for sub_link in link.links
+						if sub_link.url == current_url
+							assign active_item = link.title
+							assign active_link = sub_link.title
+							break
+						endif
+
+						for sub_sub_link in sub_link.links
+							if sub_sub_link.url == current_url
+								assign active_item = link.title
+								assign active_link = sub_sub_link.title
+								break
+							endif
+
+						endfor
+					endfor
+				endfor 
+			%}
+
+			{% for link in menu.links %}
+				{% if active_item == link.title or active_item == '' %}
+					<li class="collection-menu__main-item {% if shop.locale == 'ar' %}collection-menu__main-item--ar{% endif %}" x-data="collectionMenuItem">
+						{% liquid 
+							assign classes = 'collection-menu__main-link'
+							if shop.locale == 'ar'
+								assign classes = 'collection-menu__main-link collection-menu__main-link--ar'
+							endif
+						%}
+						{% render 'link', classes: classes, href: link.url, inner: link.title %}
+						<b></b>
+	
+						{% assign sub_links = link.links %}
+						{% if sub_links != blank %}
+	
+							<ul class="collection-menu__sub-list">
+								{% for sub_link in sub_links %}
+									{% assign sub_sub_links = sub_link.links %}
+	
+									<li class="collection-menu__sub-item {% if shop.locale == 'ar' %}collection-menu__sub-item--ar{% endif %}">
+
+										{% liquid
+											assign classes = 'collection-menu__sub-link'
+											if active_link == sub_link.title
+												assign classes = 'collection-menu__sub-link active'
+											endif
+
+											if shop.locale == 'ar'
+												assign classes = classes | append: ' collection-menu__sub-link--ar'
+											endif
+
+											render 'link', classes: classes, href: sub_link.url, inner: sub_link.title
+										%}
+
+										{% if sub_sub_links != blank %}
+											<b @click="active = {{ sub_link.title | json | escape }}" :class="{ open:  active === {{ sub_link.title | json | escape }} }"></b>
+											
+											<ul x-show="active === {{ sub_link.title | json | escape }}" class="collection-menu__sub-sub-list">
+												{% for sub_sub_link in sub_sub_links %}
+	
+													<li class="collection-menu__sub-sub-item" {% if active_link == sub_sub_link.title %}x-init="active = {{ sub_link.title | json | escape }}"{% endif %}>
+
+														{% liquid 
+															assign classes = 'collection-menu__sub-sub-link'
+															if active_link == sub_sub_link.title
+																assign classes = 'collection-menu__sub-sub-link active'
+															endif
+
+															render 'link', classes: classes, href: sub_sub_link.url, inner: sub_sub_link.title, attributes: attributes
+														%}
+
+													</li>
+													
+												{% endfor %}
+											</ul>
+										{% endif %}
+									</li>
+	
+								{% endfor %}
+							</ul>
+	
+						{% endif %}
+					</li>
+				{% endif %}
+
+			{% endfor %}
+
+		</ul>
+	</div>
+</div>

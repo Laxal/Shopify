@@ -1,0 +1,99 @@
+<template x-if="filters">
+	<div :class="{ active: active == 'filter' }" class="collection-filters-mobile {% if shop.locale == 'ar' %}collection-filters-mobile--ar{% endif %}">
+		<div class="collection-filters-mobile__inner">
+
+			<div class="collection-filters-mobile__header">
+
+				<div class="collection-filters-mobile__row">
+					<div class="collection-filters-mobile__title">
+						{{ filter_text }}
+					</div>
+					<div class="collection-filters-mobile__close-btn" @click="active = ''">
+						{% render 'icons', icon: 'icon-close' %}
+					</div>
+				</div>
+
+				<div class="collection-filters-mobile__product-count" x-text="`${productCount} {{ product_count_label | escape }}`"></div>
+			</div>
+
+			<div class="collection-filters-mobile__filter-container">
+			
+				{% assign filters = collection.filters | where: 'type', 'list' %}
+		
+					{%- for filter in filters offset: 1 -%}
+						{% liquid 
+							assign filter_label = filter.label
+							assign filter_label_json = filter_label | json | escape
+						%}
+						<div class="collection-filters-mobile__filter-item" x-data="{ open: false }" x-show="!emptyFilters.includes({{ filter_label_json }})">
+							<div @click="open = !open" :class="{ active: open }" class="collection-filters-mobile__filter-title {% if shop.locale == 'ar' %}collection-filters-mobile__filter-title--ar{% endif %}">
+								{{ filter_label }}
+							</div>
+							<div x-show="open" class="collection-filters-mobile__filter-list{% if filter_label == 'Color' or filter_label == 'Colour' %} collection-filters-mobile__filter-list--flex{% endif %}">
+		
+								{% for value in filter.values %}
+									{% liquid 
+										assign value_label = value.label
+										assign value_label_json = value_label | json | escape
+									%}
+										<div
+											x-show="!filters[{{ filter_label_json }}].inactiveValues.includes({{ value_label_json }})"
+											x-collapse
+											class="collection-filters-mobile__filter-option"
+										>
+		
+											<input
+												x-model="filters[{{ filter_label_json }}].activeValues"
+												style="display: none;"
+												type="checkbox"
+												name="filter-option"
+												id="{{ value_label | escape }}"
+												value="{{ value_label | escape }}"
+											>
+											<label
+												
+												:class="{ active: filters[{{ filter_label_json }}].activeValues.includes({{ value_label_json }}) }"
+												class="collection-filters-mobile__filter-name" for="{{ value.label | escape }}"
+											>
+												<span class="collection-filters-mobile__icon" x-show="!filters[{{ filter_label_json }}].activeValues.includes({{ value_label_json }})">
+													{% render 'icons', icon: 'icon-checkbox' %}
+												</span>
+												<span class="collection-filters-mobile__icon" x-show="filters[{{ filter_label_json }}].activeValues.includes({{ value_label_json }})">
+													{% render 'icons', icon: 'icon-checkbox-active' %}
+												</span>
+												{% if filter_label == 'Color' or filter_label == 'Colour' %}
+													<span
+														class="collection-filters-mobile__color-icon"
+														x-data="collectionColorItem"
+														x-init="setColor({{ value_label_json }})"
+														x-show="color"
+														:style="`background: ${color};`"
+													></span>
+													
+												{% endif %}
+												
+												<span>{{ value.label }}</span>
+											</label>
+		
+										</div>
+									
+								{% endfor %}
+		
+							</div>
+						</div>
+					{%- endfor -%}
+
+			</div>
+
+			<div class="collection-filters-mobile__btn-list">
+				<div @click="deselect" x-show="filterActive" class="collection-filters-mobile__btn-deselect">
+					{{ btn_reset }}
+				</div>
+				<div @click="active = ''" class="collection-filters-mobile__btn-ok btn btn__secondary">
+					{{ btn_ok }}
+				</div>
+			</div>
+
+		</div>
+	</div>
+</template>

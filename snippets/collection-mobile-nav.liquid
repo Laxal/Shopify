@@ -1,0 +1,17 @@
+{% if prev != blank or next != blank %}
+	<div class="collection-mobile-nav">
+
+		<div class="collection-mobile-nav__btn collection-mobile-nav__prev {% if shop.locale == 'ar' %}collection-mobile-nav__prev--ar{% endif %}">
+			<a href="{{ prev.url }}" class="collection-mobile-nav__link">
+				{{ prev.title }}
+			</a>
+		</div>
+
+		<div class="collection-mobile-nav__btn collection-mobile-nav__next {% if shop.locale == 'ar' %}collection-mobile-nav__next--ar{% endif %}">
+			<a href="{{ next.url }}" class="collection-mobile-nav__link">
+				{{ next.title }}
+			</a>
+		</div>
+
+	</div>
+{% endif %}

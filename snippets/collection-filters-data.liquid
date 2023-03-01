@@ -1,0 +1,22 @@
+{%- capture filter_data -%}
+{%- assign filters = collection.filters | where: 'type', 'list' -%}
+	{
+		{%- for filter in filters -%}
+			{{ filter.label | json | escape }}: {
+				paramName: {{ filter.param_name | json | escape }},
+				values: [
+					{%- for value in filter.values -%}
+						{
+							active: {{ value.active }},
+							count: {{ value.count }},
+							label: {{ value.label | json | escape }},
+							value: {{ value.value | json | escape }}
+						},
+					{%- endfor -%}
+				]
+			},
+		{%- endfor -%}
+	}
+{%- endcapture -%}
+
+<span x-init="() => { filtersData = {{ filter_data }}, productCount = {{ collection.products_count }} }" style="display: none;"></span>

@@ -1,0 +1,130 @@
+@include media-max($desktop) {
+	.grid-2 .collection-product-card.double {
+		grid-column: auto;
+	}
+}
+
+.collection-product-card {
+	&.double {
+		grid-column: span 2;
+	}
+
+	&__inner {
+		position: relative;
+	}
+
+	&__favorite-btn {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		z-index: 3;
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+
+		svg {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		@include media-max($desktop) {
+			top: 10px;
+			right: 10px;
+			opacity: 1;
+		}
+	}
+
+	&__inner:hover &__favorite-btn {
+		opacity: 1;
+	}
+
+	&__image {
+		position: relative;
+		display: block;
+		width: 100%;
+		overflow: hidden;
+
+		&::before {
+			display: block;
+			width: 100%;
+			padding-top: 120%;
+			content: "";
+		}
+
+		img,
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-position: center;
+			object-fit: cover;
+			transition: transform 0.3s ease-in-out;
+			transform: scale(1);
+		}
+	}
+
+	@include media-min(calc($desktop + 1px)) {
+		&:not(.double):hover &__image img,
+		&:not(.double):hover &__image svg {
+			transform: scale(1.03);
+		}
+	}
+
+	&.double &__image::before {
+		padding-top: 59%;
+	}
+
+	&__detail {
+		min-height: 110px;
+		padding-top: 10px;
+
+		@include media-max($desktop) {
+			padding-right: 10px;
+			padding-left: 10px;
+		}
+	}
+
+	&__detail-header {
+		margin-bottom: 5px;
+		font-size: calc($font-size - 1px);
+		line-height: 18px;
+		color: $color-dark-grey-2;
+	}
+
+	&__footer {
+		min-height: 40px;
+	}
+
+	&__price {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	&__price-item {
+		font-size: calc($font-size - 1px);
+		font-weight: 400;
+		line-height: 1.15;
+		color: $color-dark;
+
+		&--old {
+			text-decoration: line-through;
+		}
+
+		&--new {
+			color: $color-red;
+		}
+	}
+
+	&__discount-label {
+		font-size: calc(var(--font-size-base) - 1px);
+		line-height: 1.4;
+		color: var(--color-red);
+	}
+}

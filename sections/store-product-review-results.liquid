@@ -1,0 +1,61 @@
+<div class="grid-section">
+  <div class="grid-section__left" id="landing_menu_parent">
+  </div>
+  <div class="review-results grid-section__right">
+    <div class="review-results__container">
+      {%liquid
+     assign title = section.settings.title
+     assign richtext = section.settings.richtext
+     
+   
+      if shop.locale == 'ar'
+        if section.settings.title_ar != blank
+          assign title = section.settings.title_ar
+        endif
+        if section.settings.richtext_ar != blank
+          assign richtext = section.settings.richtext_ar
+        endif
+      endif
+      %}
+      <div >
+        <h1 class="review-results__title">{{title}}</h1>
+        <div class="review-results__text">{{richtext}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Product review results",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section title",
+        "default":"Store Product Review Results"
+      },
+      {
+        "type": "text",
+        "id": "title_ar",
+        "label": "Section title (AR)"
+      },{
+        "type": "richtext",
+        "id": "richtext",
+        "label": "Section text",
+        "default": "<p>Click here to learn the results of the inspection of the products you left at Ipekyol Stores.</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "richtext_ar",
+        "label": "Section text (AR)"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

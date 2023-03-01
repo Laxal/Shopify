@@ -1,0 +1,114 @@
+{%liquid
+assign title = section.settings.title
+assign main_image = section.settings.main_image
+
+if shop.locale == 'ar'
+  if section.settings.title_ar != blank
+    assign title = section.settings.title_ar
+  endif
+endif
+%}
+
+<div class="brsa grid-section">
+  <div class="brsa__menu grid-section__left" id="landing_menu_parent">
+  </div>
+  <div class="grid-section__right z_index_max">
+    <div class="brsa__content grid-section__right__container">
+      <div class="brsa__content__header">
+        <h1 class="brsa__content__header__title">{{title}}</h1>
+        {% render 'media',image:main_image %}
+      </div>
+      <div class="brsa__content__main">
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+            {%liquid
+              assign block_image= block.settings.block_image
+              assign block_text = block.settings.block_text
+              assign block_link_text = block.settings.block_link_text
+           
+              if shop.locale == 'ar'
+                if block.settings.block_text_ar != blank
+                  assign block_text = block.settings.block_text_ar
+                endif
+                if block.settings.block_link_text_ar != blank
+                assign block_link_text = block.settings.block_link_text_ar
+              endif
+              endif
+              %}
+          <div class="brsa__content__main__block">
+            {% render 'media',image:block_image %}
+            <div class="brsa__content__main__block__text">{{block_text}}</div>
+            <a class="brsa__content__main__block__link" href="{{block.settings.link_url}}">{{block_link_text}}</a>
+          </div>
+          {% endfor %}
+        {% endif %}
+       
+      </div>
+    </div>
+  </div>
+  
+</div>
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "BRSA Information Content"
+      },
+      {
+        "type": "text",
+        "id": "title_ar",
+        "label": " (AR)"
+      },
+      {
+        "type": "image_picker",
+        "id": "main_image",
+        "label": "Main image"
+      }
+    ],"blocks": [
+      {
+        "type": "Block",
+        "name": "Section",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "block_image",
+            "label": "Image for section"
+          },
+          {
+            "type": "richtext",
+            "id": "block_text",
+            "label": "Section text",
+            "default": "<p>You can send an SMS to 4944 by typing your OPEN (space) Bank Customer number . You can give orders to your bank by calling Yapı Kredi Bank customer service at 444 0 444 . You can open your card for online shopping on your bank's internet banking page. MORE INFORMATION</p>"
+          },
+          {
+            "type": "richtext",
+            "id": "block_text_ar",
+            "label": "Section text (AR)"
+          },
+          {
+            "type": "text",
+            "id": "block_link_text",
+            "label": "Lint text",
+            "default": "MORE INFORMATION"
+          },
+          {
+            "type": "text",
+            "id": "block_link_text_ar",
+            "label": "Lint text (AR)"
+          },
+          {
+            "type": "url",
+            "id": "link_url",
+            "label": "Link url"
+          }
+    
+        ]
+      }
+    ]
+    
+  }
+{% endschema %}

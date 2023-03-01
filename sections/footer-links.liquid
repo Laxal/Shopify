@@ -1,0 +1,60 @@
+<div>
+	{% if section.blocks.size > 0 %}
+	<div class="footer-links">
+		<div class="footer-links__inner container">
+			{% for block in section.blocks %}
+			{% assign link_url = block.settings.link_url %}
+			{% assign link_title = block.settings.link_title %}
+
+			{% if shop.locale == 'ar' %}
+
+			{% if block.settings.title_ar != blank %}
+			{% assign title = block.settings.title_ar %}
+			{% endif %}
+
+			{% endif %}
+			<a href="{{link_url}}" class="footer-links__item">
+				{{link_title}}
+			</a>
+			<!-- <div>{{link_url}}</div>
+			<div>{{link_title}}</div> -->
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% schema %}
+{
+"name": "Footer-links",
+"settings": [
+
+],
+
+"blocks": [
+{
+"name": "Links",
+"type": "Links",
+
+"settings": [
+{
+"type": "url",
+"id": "link_url",
+"label": "Link"
+},
+{
+"type": "text",
+"id": "link_title",
+"label": "Link text",
+"default": "Link text"
+},
+{
+"type": "text",
+"id": "link_title_ar",
+"label": "Link text (AR)"
+}
+]
+}
+]
+}
+{% endschema %}
